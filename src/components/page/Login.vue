@@ -16,6 +16,7 @@
               v-model="username"
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               :class="{ 'border-red-500': usernameError }"
+              :disabled="isLoading"
               required
             />
             <p v-if="usernameError" class="text-red-500 text-xs italic mt-1">
@@ -34,6 +35,7 @@
               v-model="password"
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
               :class="{ 'border-red-500': passwordError }"
+              :disabled="isLoading"
               required
             />
             <p v-if="passwordError" class="text-red-500 text-xs italic mt-1">
@@ -50,7 +52,15 @@
             </button>
           </div>
         </form>
-        <p v-if="error" class="text-red-500 text-xs italic mt-4">{{ error }}</p>
+        <div v-if="isLoading" class="mt-4 text-center">
+          <p class="text-primary-medium">Authenticating... Please wait.</p>
+        </div>
+        <div
+          v-if="error"
+          class="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded"
+        >
+          <p>{{ error }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -106,7 +116,8 @@ export default {
         });
         router.push("/products");
       } catch (err) {
-        error.value = "Invalid username or password";
+        error.value =
+          "Login failed. Please check your username and password and try again.";
       } finally {
         isLoading.value = false;
       }
