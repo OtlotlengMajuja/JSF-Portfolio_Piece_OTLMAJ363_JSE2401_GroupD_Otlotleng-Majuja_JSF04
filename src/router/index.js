@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../components/page/Home.vue'
 import ProductList from '../components/products/ProductList.vue';
 import ProductDetails from '../components/page/ProductDetails.vue';
+import Login from '../components/page/Login.vue';
+import store from '../store/store';
 
 /**
  * Array of route objects.
@@ -42,6 +44,11 @@ const routes = [
         path: '/product/:id',
         name: 'ProductDetails',
         component: ProductDetails
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        component: Login
     }
 ];
 
@@ -54,6 +61,12 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes
+});
+
+router.beforeEach((to, from, next) => {
+    const isAuthenticated = store.getters.isAuthenticated;
+    if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
+    else next()
 });
 
 export default router;
