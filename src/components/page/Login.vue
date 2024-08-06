@@ -3,7 +3,7 @@
     <div class="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden">
       <div class="p-6">
         <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
-        <form @submit.prevent="login">
+        <form @submit.prevent="submitForm">
           <div class="mb-4">
             <label
               for="username"
@@ -15,8 +15,12 @@
               id="username"
               v-model="username"
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              :class="{ 'border-red-500': usernameError }"
               required
             />
+            <p v-if="usernameError" class="text-red-500 text-xs italic mt-1">
+              {{ usernameError }}
+            </p>
           </div>
           <div class="mb-6">
             <label
@@ -29,15 +33,20 @@
               id="password"
               v-model="password"
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              :class="{ 'border-red-500': passwordError }"
               required
             />
+            <p v-if="passwordError" class="text-red-500 text-xs italic mt-1">
+              {{ passwordError }}
+            </p>
           </div>
           <div class="flex items-center justify-between">
             <button
               type="submit"
               class="bg-black hover:bg-primary-medium text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              :disabled="isLoading"
             >
-              Sign In
+              {{ isLoading ? "Signing In..." : "Sign In" }}
             </button>
           </div>
         </form>
@@ -60,16 +69,46 @@ export default {
     const username = ref("");
     const password = ref("");
     const error = ref("");
+    const usernameError = ref("");
+    const passwordError = ref("");
+    const isLoading = ref(false);
 
-    const login = async () => {
+    const validateForm = () => {
+      let isValid = true;
+      usernameError.value = "";
+      passwordError.value = "";
+
+      if (!username.value.trim()) {
+        usernameError.value = "Username is required";
+        isValid = false;
+      }
+
+      if (!password.value.trim()) {
+        passwordError.value = "Password is required";
+        isValid = false;
+      }
+
+      return isValid;
+    };
+
+    const submitForm = async () => {
+      if (!validateForm()) {
+        return;
+      }
+
+      isLoading.value = true;
+      error.value = "";
+
       try {
         await store.dispatch("login", {
-          username: username.value,
-          password: password.value,
+          username: username.value.trim(),
+          password: password.value.trim(),
         });
         router.push("/products");
       } catch (err) {
         error.value = "Invalid username or password";
+      } finally {
+        isLoading.value = false;
       }
     };
 
@@ -77,7 +116,10 @@ export default {
       username,
       password,
       error,
-      login,
+      usernameError,
+      passwordError,
+      isLoading,
+      submitForm,
     };
   },
 };
