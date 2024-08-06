@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../components/Home.vue'
-import ProductList from '../components/ProductList.vue';
-import ProductDetails from '../components/ProductDetails.vue';
+import Home from '../components/page/Home.vue'
+import ProductList from '../components/products/ProductList.vue';
+import ProductDetails from '../components/page/ProductDetails.vue';
 
 /**
  * Array of route objects.

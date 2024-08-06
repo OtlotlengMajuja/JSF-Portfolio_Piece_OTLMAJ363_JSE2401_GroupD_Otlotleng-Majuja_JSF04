@@ -4,7 +4,11 @@
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center">
           <router-link to="/" class="flex items-center">
-            <img src="../assets/logo.png" class="h-8 w-8" alt="Emercom Logo" />
+            <img
+              src="../../public/logo.png"
+              class="h-8 w-8"
+              alt="Emercom Logo"
+            />
             <span class="ml-2 text-black text-lg font-semibold">Emercom</span>
           </router-link>
         </div>

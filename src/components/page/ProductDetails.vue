@@ -48,7 +48,7 @@
 <script>
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
-import StarRating from "./StarRating.vue";
+import StarRating from "../StarRating.vue";
 
 /**
  * ProductDetails component
