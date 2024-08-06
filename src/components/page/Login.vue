@@ -35,7 +35,7 @@
           <div class="flex items-center justify-between">
             <button
               type="submit"
-              class="bg-primary-dark hover:bg-primary-medium text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              class="bg-black hover:bg-primary-medium text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Sign In
             </button>

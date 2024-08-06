@@ -7,6 +7,8 @@
 
 <script>
 import Navbar from "./components/Navbar.vue";
+import { onMounted } from "vue";
+import { useStore } from "vuex";
 
 /**
  * The root component of the application.
@@ -23,6 +25,13 @@ export default {
      * Navbar component
      */
     Navbar,
+  },
+  setup() {
+    const store = useStore();
+
+    onMounted(() => {
+      store.dispatch("checkAuth");
+    });
   },
 };
 </script>

@@ -15,10 +15,30 @@
         <div class="hidden md:block">
           <div class="ml-10 flex items-baseline space-x-4">
             <router-link
-              to="/"
+              to="/products"
               class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >Products</router-link
             >
+            <template v-if="isAuthenticated">
+              <span
+                class="text-gray-300 px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Welcome, {{ currentUser.username }}
+              </span>
+              <button
+                @click="logout"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Logout
+              </button>
+            </template>
+            <router-link
+              v-else
+              to="/login"
+              class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            >
+              Login
+            </router-link>
           </div>
         </div>
         <div class="md:hidden">
@@ -42,17 +62,36 @@
     </div>
     <div :class="{ hidden: !isMenuOpen }" class="md:hidden">
       <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <template v-if="isAuthenticated">
+          <span
+            class="text-black block px-3 py-2 rounded-md text-base font-medium"
+          >
+            Welcome, {{ currentUser.username }}
+          </span>
+          <button
+            @click="logout"
+            class="text-black hover:bg-black hover:text-white block px-3 py-2 rounded-md text-base font-medium w-full text-left"
+          >
+            Logout
+          </button>
+        </template>
         <router-link
-          to="/"
-          class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-          >Products</router-link
+          v-else
+          to="/login"
+          class="text-black hover:bg-black hover:text-white block px-3 py-2 rounded-md text-base font-medium"
         >
+          Login
+        </router-link>
       </div>
     </div>
   </nav>
 </template>
 
 <script>
+import { ref, computed } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+
 /**
  * Navbar component
  *
@@ -60,26 +99,44 @@
  *
  * @component
  * @property {boolean} isMenuOpen - Indicates whether the mobile menu is open.
+ * @property {boolean} isAuthenticated - Indicates whether the user is authenticated.
+ * @property {Object} currentUser - The current authenticated user.
  */
 export default {
   name: "Navbar",
-  data() {
-    return {
-      /**
-       * Indicates whether the mobile menu is open.
-       *
-       * @type {boolean}
-       */
-      isMenuOpen: false,
-    };
-  },
-  methods: {
+  setup() {
+    const store = useStore();
+    const router = useRouter();
+    const isMenuOpen = ref(false);
+
+    const isAuthenticated = computed(() => store.getters.isAuthenticated);
+    const currentUser = computed(() => store.getters.currentUser);
+
     /**
      * Toggles the mobile menu open/closed state.
      */
-    toggleMenu() {
-      this.isMenuOpen = !this.isMenuOpen;
-    },
+    const toggleMenu = () => {
+      isMenuOpen.value = !isMenuOpen.value;
+    };
+
+    /**
+     * Logs out the current user.
+     */
+    const logout = () => {
+      store.dispatch("logout");
+      router.push("/login");
+      if (isMenuOpen.value) {
+        toggleMenu();
+      }
+    };
+
+    return {
+      isMenuOpen,
+      isAuthenticated,
+      currentUser,
+      toggleMenu,
+      logout,
+    };
   },
 };
 </script>
