@@ -1,5 +1,5 @@
 {
-  "name": "module-4-otlmaj363-jse2401-groupd-otlotleng-majuja-jsf03",
+  "name": "portfolio-piece",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -15,8 +15,8 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",
-    "autoprefixer": "^10.4.19",
-    "postcss": "^8.4.40",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.41",
     "tailwindcss": "^3.4.7",
     "vite": "^5.3.4"
   }
