@@ -144,7 +144,8 @@ export default createStore({
 
                 const data = await response.json();
                 commit('setToken', data.token);
-                commit('setUser', { username }); // We don't get user details from the API, so we're just storing the username
+                commit('setUser', { username });
+
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('user', JSON.stringify({ username }));
             } catch (error) {
@@ -156,6 +157,7 @@ export default createStore({
         logout({ commit }) {
             commit('setUser', null);
             commit('setToken', null);
+
             localStorage.removeItem('token');
             localStorage.removeItem('user');
         },

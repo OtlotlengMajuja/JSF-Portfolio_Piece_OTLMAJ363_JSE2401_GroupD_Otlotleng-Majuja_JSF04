@@ -23,21 +23,46 @@
               {{ usernameError }}
             </p>
           </div>
-          <div class="mb-6">
+          <div class="mb-6 relative">
             <label
               for="password"
               class="block text-gray-700 text-sm font-bold mb-2"
               >Password</label
             >
             <input
-              type="password"
+              :type="showPassword ? 'text' : 'password'"
               id="password"
               v-model="password"
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline pr-10"
               :class="{ 'border-red-500': passwordError }"
               :disabled="isLoading"
               required
             />
+            <button
+              type="button"
+              @click="togglePasswordVisibility"
+              class="absolute inset-y-0 right-0 top-6 pr-3 flex items-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-5 h-5 text-gray-500"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+              </svg>
+            </button>
             <p v-if="passwordError" class="text-red-500 text-xs italic mt-1">
               {{ passwordError }}
             </p>
@@ -82,6 +107,7 @@ export default {
     const usernameError = ref("");
     const passwordError = ref("");
     const isLoading = ref(false);
+    const showPassword = ref(false);
 
     const validateForm = () => {
       let isValid = true;
@@ -123,6 +149,10 @@ export default {
       }
     };
 
+    const togglePasswordVisibility = () => {
+      showPassword.value = !showPassword.value;
+    };
+
     return {
       username,
       password,
@@ -130,7 +160,9 @@ export default {
       usernameError,
       passwordError,
       isLoading,
+      showPassword,
       submitForm,
+      togglePasswordVisibility,
     };
   },
 };
