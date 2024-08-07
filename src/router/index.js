@@ -17,7 +17,8 @@ import store from '../store/store';
 const routes = [
     {
         path: '/',
-        redirect: '/products'
+        name: 'Home',
+        component: Home
     },
     /**
      * Route for the product list page.
@@ -65,8 +66,12 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     const isAuthenticated = store.getters.isAuthenticated;
-    if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
-    else next()
+
+    if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
+        next({ name: 'Login', query: { redirect: to.fullPath } });
+    } else {
+        next();
+    }
 });
 
 export default router;
