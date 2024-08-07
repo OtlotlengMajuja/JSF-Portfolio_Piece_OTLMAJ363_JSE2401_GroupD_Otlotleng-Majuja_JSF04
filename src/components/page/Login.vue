@@ -94,13 +94,14 @@
 <script>
 import { ref } from "vue";
 import { useStore } from "vuex";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 
 export default {
   name: "Login",
   setup() {
     const store = useStore();
     const router = useRouter();
+    const route = useRoute();
     const username = ref("");
     const password = ref("");
     const error = ref("");
@@ -108,6 +109,31 @@ export default {
     const passwordError = ref("");
     const isLoading = ref(false);
     const showPassword = ref(false);
+
+    const submitForm = async () => {
+      if (!validateForm()) {
+        return;
+      }
+
+      isLoading.value = true;
+      error.value = "";
+
+      try {
+        await store.dispatch("login", {
+          username: username.value.trim(),
+          password: password.value.trim(),
+        });
+
+        // Redirect to the intended page or default to ProductList
+        const redirectPath = route.query.redirect || "/products";
+        router.push(redirectPath);
+      } catch (err) {
+        error.value =
+          "Login failed. Please check your username and password and try again.";
+      } finally {
+        isLoading.value = false;
+      }
+    };
 
     const validateForm = () => {
       let isValid = true;
@@ -125,28 +151,6 @@ export default {
       }
 
       return isValid;
-    };
-
-    const submitForm = async () => {
-      if (!validateForm()) {
-        return;
-      }
-
-      isLoading.value = true;
-      error.value = "";
-
-      try {
-        await store.dispatch("login", {
-          username: username.value.trim(),
-          password: password.value.trim(),
-        });
-        router.push("/products");
-      } catch (err) {
-        error.value =
-          "Login failed. Please check your username and password and try again.";
-      } finally {
-        isLoading.value = false;
-      }
     };
 
     const togglePasswordVisibility = () => {
