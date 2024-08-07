@@ -33,6 +33,7 @@ export default createStore({
         categories: [],
         user: null,
         token: null,
+        cart: [],
     },
     mutations: {
         /**
@@ -92,8 +93,33 @@ export default createStore({
         setUser(state, user) {
             state.user = user;
         },
+
         setToken(state, token) {
             state.token = token;
+        },
+
+        setCart(state, cart) {
+            state.cart = cart;
+        },
+
+        addToCart(state, product) {
+            const existingItem = state.cart.find(item => item.id === product.id);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                state.cart.push({ ...product, quantity: 1 });
+            }
+            localStorage.setItem('cart', JSON.stringify(state.cart));
+        },
+
+        removeFromCart(state, productId) {
+            state.cart = state.cart.filter(item => item.id !== productId);
+            localStorage.setItem('cart', JSON.stringify(state.cart));
+        },
+
+        clearCart(state) {
+            state.cart = [];
+            localStorage.removeItem('cart');
         },
     },
     actions: {
@@ -152,6 +178,19 @@ export default createStore({
                 console.error("Error logging in:", error);
                 throw error;
             }
+
+            const data = await response.json();
+            const decodedToken = jwtDecode(data.token);
+            commit('setToken', data.token);
+            commit('setUser', { username, id: decodedToken.sub }); // Include user ID
+
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify({ username, id: decodedToken.sub }));
+
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+                commit('setCart', JSON.parse(savedCart));
+            }
         },
 
         logout({ commit }) {
@@ -160,13 +199,36 @@ export default createStore({
 
             localStorage.removeItem('token');
             localStorage.removeItem('user');
+
+            commit('clearCart');
         },
+
         checkAuth({ commit }) {
             const token = localStorage.getItem('token');
             const user = JSON.parse(localStorage.getItem('user'));
             if (token && user) {
                 commit('setToken', token);
                 commit('setUser', user);
+            }
+
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+                commit('setCart', JSON.parse(savedCart));
+            }
+        },
+
+        addToCart({ commit, state }, product) {
+            if (state.user) {
+                commit('addToCart', product);
+            } else {
+                throw new Error('User must be logged in to add items to cart');
+            }
+        },
+        removeFromCart({ commit, state }, productId) {
+            if (state.user) {
+                commit('removeFromCart', productId);
+            } else {
+                throw new Error('User must be logged in to remove items from cart');
             }
         },
     },
@@ -196,5 +258,8 @@ export default createStore({
 
         isAuthenticated: state => !!state.token,
         currentUser: state => state.user,
+
+        cartItems: state => state.cart,
+        cartTotal: state => state.cart.reduce((total, item) => total + item.price * item.quantity, 0),
     },
 });
