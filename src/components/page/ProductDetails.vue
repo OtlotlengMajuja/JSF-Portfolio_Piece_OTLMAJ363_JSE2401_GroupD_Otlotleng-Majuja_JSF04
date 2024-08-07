@@ -33,6 +33,12 @@
               reviews)</span
             >
           </div>
+          <button
+            @click="addToCart"
+            class="bg-black text-white px-4 py-2 rounded hover:bg-primary-accent1 transition-colors duration-300 mt-4"
+          >
+            Add to Cart
+          </button>
           <router-link
             to="/"
             class="bg-black text-white px-4 py-2 rounded hover:bg-black"
@@ -49,6 +55,7 @@
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import StarRating from "../StarRating.vue";
+import { useStore } from "vuex";
 
 /**
  * ProductDetails component
@@ -63,6 +70,7 @@ export default {
     StarRating,
   },
   setup() {
+    const store = useStore();
     const route = useRoute();
 
     /**
@@ -117,10 +125,20 @@ export default {
       fetchProduct(route.params.id);
     });
 
+    const addToCart = () => {
+      try {
+        store.dispatch("addToCart", product.value);
+        alert("Product added to cart!");
+      } catch (error) {
+        alert(error.message);
+      }
+    };
+
     return {
       product,
       loading,
       error,
+      addToCart,
     };
   },
 };
