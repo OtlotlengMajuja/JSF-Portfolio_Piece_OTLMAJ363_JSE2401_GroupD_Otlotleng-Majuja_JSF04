@@ -121,6 +121,19 @@ export default createStore({
             state.cart = [];
             localStorage.removeItem('cart');
         },
+
+        updateCartItemQuantity(state, { productId, quantity }) {
+            const item = state.cart.find(i => i.id === productId);
+            if (item) {
+                item.quantity = quantity;
+                localStorage.setItem('cart', JSON.stringify(state.cart));
+            }
+        },
+
+        clearCart(state) {
+            state.cart = [];
+            localStorage.removeItem('cart');
+        },
     },
     actions: {
         /**
@@ -224,11 +237,27 @@ export default createStore({
                 throw new Error('User must be logged in to add items to cart');
             }
         },
+
         removeFromCart({ commit, state }, productId) {
             if (state.user) {
                 commit('removeFromCart', productId);
             } else {
                 throw new Error('User must be logged in to remove items from cart');
+            }
+        },
+
+        updateCartItemQuantity({ commit, state }, { productId, quantity }) {
+            if (state.user) {
+                commit('updateCartItemQuantity', { productId, quantity });
+            } else {
+                throw new Error('User must be logged in to update cart items');
+            }
+        },
+        clearCart({ commit, state }) {
+            if (state.user) {
+                commit('clearCart');
+            } else {
+                throw new Error('User must be logged in to clear the cart');
             }
         },
     },
@@ -261,5 +290,6 @@ export default createStore({
 
         cartItems: state => state.cart,
         cartTotal: state => state.cart.reduce((total, item) => total + item.price * item.quantity, 0),
+        cartItemsCount: state => state.cart.reduce((total, item) => total + item.quantity, 0),
     },
 });
