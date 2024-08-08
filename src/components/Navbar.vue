@@ -17,6 +17,7 @@
             <router-link
               to="/products"
               class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              @click="toggleMenu"
               >Products</router-link
             >
             <template v-if="isAuthenticated">
@@ -25,6 +26,13 @@
               >
                 Welcome, {{ currentUser.username }}
               </span>
+              <router-link
+                to="/cart"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                @click="toggleMenu"
+              >
+                Cart ({{ cartItemsCount }})
+              </router-link>
               <button
                 @click="logout"
                 class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
@@ -36,6 +44,7 @@
               v-else
               to="/login"
               class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              @click="toggleMenu"
             >
               Login
             </router-link>
@@ -65,21 +74,22 @@
         <router-link
           to="/products"
           class="text-black hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+          @click="toggleMenu"
           >Products</router-link
         >
-        <router-link
-          v-if="isAuthenticated"
-          to="/cart"
-          class="text-black hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-sm font-large"
-        >
-          Cart ({{ cartItemsCount }})
-        </router-link>
         <template v-if="isAuthenticated">
           <span
             class="text-black block px-3 py-2 rounded-md text-base font-medium"
           >
             Welcome, {{ currentUser.username }}
           </span>
+          <router-link
+            to="/cart"
+            class="text-black hover:bg-black hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+            @click="toggleMenu"
+          >
+            Cart ({{ cartItemsCount }})
+          </router-link>
           <button
             @click="logout"
             class="text-black hover:bg-black hover:text-white block px-3 py-2 rounded-md text-base font-medium w-full text-left"
@@ -91,6 +101,7 @@
           v-else
           to="/login"
           class="text-black hover:bg-black hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+          @click="toggleMenu"
         >
           Login
         </router-link>
@@ -138,9 +149,7 @@ export default {
     const logout = () => {
       store.dispatch("logout");
       router.push("/login");
-      if (isMenuOpen.value) {
-        toggleMenu();
-      }
+      toggleMenu();
     };
 
     return {
