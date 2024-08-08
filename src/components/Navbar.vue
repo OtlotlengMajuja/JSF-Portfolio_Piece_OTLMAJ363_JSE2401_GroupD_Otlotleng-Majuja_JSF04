@@ -64,9 +64,16 @@
       <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
         <router-link
           to="/products"
-          class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+          class="text-black hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
           >Products</router-link
         >
+        <router-link
+          v-if="isAuthenticated"
+          to="/cart"
+          class="text-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+        >
+          Cart ({{ cartItemsCount }})
+        </router-link>
         <template v-if="isAuthenticated">
           <span
             class="text-black block px-3 py-2 rounded-md text-base font-medium"
