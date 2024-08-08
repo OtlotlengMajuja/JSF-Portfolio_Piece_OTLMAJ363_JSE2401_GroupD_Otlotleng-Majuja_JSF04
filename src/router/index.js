@@ -3,6 +3,7 @@ import Home from '../components/page/Home.vue'
 import ProductList from '../components/products/ProductList.vue';
 import ProductDetails from '../components/page/ProductDetails.vue';
 import Login from '../components/page/Login.vue';
+import CartView from '../components/view/CartView.vue';
 import store from '../store/store';
 
 /**
@@ -50,6 +51,12 @@ const routes = [
         path: '/login',
         name: 'Login',
         component: Login
+    },
+    {
+        path: '/cart',
+        name: 'Cart',
+        component: CartView,
+        meta: { requiresAuth: true }
     }
 ];
 
