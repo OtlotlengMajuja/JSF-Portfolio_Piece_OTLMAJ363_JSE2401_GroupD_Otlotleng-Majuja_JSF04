@@ -123,6 +123,7 @@ export default {
 
     const isAuthenticated = computed(() => store.getters.isAuthenticated);
     const currentUser = computed(() => store.getters.currentUser);
+    const cartItemsCount = computed(() => store.getters.cartItems.length);
 
     /**
      * Toggles the mobile menu open/closed state.
@@ -146,6 +147,7 @@ export default {
       isMenuOpen,
       isAuthenticated,
       currentUser,
+      cartItemsCount,
       toggleMenu,
       logout,
     };
