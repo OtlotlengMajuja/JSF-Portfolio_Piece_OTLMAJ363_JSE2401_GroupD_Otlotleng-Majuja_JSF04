@@ -1,6 +1,15 @@
 <template>
   <div class="container mx-auto px-4 py-8">
-    <h1 class="text-2xl font-bold mb-4">Your Shopping Cart</h1>
+    <div class="flex items-center justify-between mb-4">
+      <h1 class="text-2xl font-bold">Your Shopping Cart</h1>
+      <router-link
+        to="/products"
+        class="bg-black text-white px-4 py-2 rounded hover:bg-black"
+        @click="toggleMenu"
+      >
+        Back to Products
+      </router-link>
+    </div>
     <div v-if="cartItems.length === 0" class="text-center text-gray-500">
       Your cart is empty.
     </div>
