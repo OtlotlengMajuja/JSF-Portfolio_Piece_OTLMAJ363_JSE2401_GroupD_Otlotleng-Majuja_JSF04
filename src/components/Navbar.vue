@@ -70,7 +70,7 @@
         <router-link
           v-if="isAuthenticated"
           to="/cart"
-          class="text-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+          class="text-black hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-sm font-large"
         >
           Cart ({{ cartItemsCount }})
         </router-link>
