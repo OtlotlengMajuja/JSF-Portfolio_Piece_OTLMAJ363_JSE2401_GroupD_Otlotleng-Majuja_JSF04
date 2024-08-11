@@ -20,6 +20,13 @@
               @click="toggleMenu"
               >Products</router-link
             >
+            <router-link
+              v-if="isAuthenticated"
+              to="/comparison"
+              class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              @click="toggleMenu"
+              >Compare ({{ comparisonListCount }})
+            </router-link>
             <template v-if="isAuthenticated">
               <span
                 class="text-gray-300 px-3 py-2 rounded-md text-sm font-medium"
