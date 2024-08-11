@@ -85,6 +85,7 @@ export default {
   name: "CartView",
   setup() {
     const store = useStore();
+    const router = useRouter();
 
     const cartItems = computed(() => store.getters.cartItems);
     const cartTotal = computed(() => store.getters.cartTotal);
@@ -105,12 +106,18 @@ export default {
       store.dispatch("clearCart");
     };
 
+    const toggleMenu = () => {
+      const isMenuOpen = store.state.isMenuOpen;
+      store.commit("setIsMenuOpen", !isMenuOpen);
+    };
+
     return {
       cartItems,
       cartTotal,
       removeFromCart,
       updateQuantity,
       clearCart,
+      toggleMenu,
     };
   },
 };
