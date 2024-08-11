@@ -34,6 +34,7 @@ export default createStore({
         user: null,
         token: null,
         cart: [],
+        comparisonList: [],
     },
     mutations: {
         /**
@@ -133,6 +134,27 @@ export default createStore({
         clearCart(state) {
             state.cart = [];
             localStorage.removeItem('cart');
+        },
+
+        addToComparisonList(state, product) {
+            if (!state.comparisonList.some(item => item.id === product.id)) {
+                state.comparisonList.push(product);
+                localStorage.setItem('comparisonList', JSON.stringify(state.comparisonList));
+            }
+        },
+
+        removefromComparisonList(state, productId) {
+            state.comparisonList = state.comparisonList.filter(item => item.id !== productId);
+            localStorage.setItem('comparisonList', JSON.stringify(state.comparisonList));
+        },
+
+        clearComparisonList(state) {
+            state.comparisonList = [];
+            localStorage.removeItem('comparisonList');
+        },
+
+        setComparisonList(state, list) {
+            state.comparisonList = list;
         },
     },
     actions: {
