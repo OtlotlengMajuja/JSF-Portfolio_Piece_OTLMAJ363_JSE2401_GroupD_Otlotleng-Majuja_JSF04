@@ -282,6 +282,37 @@ export default createStore({
                 throw new Error('User must be logged in to clear the cart');
             }
         },
+
+        addToComparisonList({ commit, state }, product) {
+            if (state.user) {
+                commit('addToComparisonList', product);
+            } else {
+                throw new Error('User must be logged in to add items to comparison list');
+            }
+        },
+
+        removefromComparisonList({ commit, state }, productId) {
+            if (state.user) {
+                commit('removefromComparisonList', productId);
+            } else {
+                throw new Error('User must be logged in to remove items from comparison list');
+            }
+        },
+
+        clearComparisonList({ commit, state }) {
+            if (state.user) {
+                commit('clearComparisonList');
+            } else {
+                throw new Error('User must be logged in to clear comparison list');
+            }
+        },
+
+        loadComparisonList({ commit }) {
+            const savedList = localStorage.getItem('comparisonList');
+            if (savedList) {
+                commit('setComparisonList', JSON.parse(savedList));
+            }
+        },
     },
     getters: {
         /**
@@ -313,5 +344,8 @@ export default createStore({
         cartItems: state => state.cart,
         cartTotal: state => state.cart.reduce((total, item) => total + item.price * item.quantity, 0),
         cartItemsCount: state => state.cart.reduce((total, item) => total + item.quantity, 0),
+
+        comparisonList: state => state.comparisonList,
+        comparisonListCount: state => state.comparisonList.length,
     },
 });
