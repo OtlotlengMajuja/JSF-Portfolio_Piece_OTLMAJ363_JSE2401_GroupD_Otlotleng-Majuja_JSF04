@@ -14,7 +14,7 @@
               :key="product.id"
               class="px-4 py-2 border"
             >
-              {{ product.title }}
+              <div class="w-48 truncate">{{ product.title }}</div>
             </th>
           </tr>
         </thead>
@@ -29,7 +29,7 @@
               <img
                 :src="product.image"
                 :alt="product.title"
-                class="w-20 h-20 object-contain mx-auto"
+                class="w-32 h-32 object-contain mx-auto"
               />
             </td>
           </tr>
