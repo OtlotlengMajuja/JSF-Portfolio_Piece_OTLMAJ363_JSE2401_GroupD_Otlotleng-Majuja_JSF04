@@ -143,7 +143,7 @@ export default {
     const addToComparison = () => {
       try {
         store.dispatch("addToComparison", product.value);
-        alert("product added to comparison list!");
+        alert("Product added to comparison list!");
       } catch (error) {
         alert(error.message);
       }
