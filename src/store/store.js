@@ -204,6 +204,7 @@ export default createStore({
                 }
 
                 const data = await response.json();
+                console.log(data);
                 commit('setToken', data.token);
                 commit('setUser', { username });
 
@@ -214,13 +215,13 @@ export default createStore({
                 throw error;
             }
 
-            const data = await response.json();
+            /** const data = await response.json();
             const decodedToken = jwtDecode(data.token);
             commit('setToken', data.token);
             commit('setUser', { username, id: decodedToken.sub }); // Include user ID
 
             localStorage.setItem('token', data.token);
-            localStorage.setItem('user', JSON.stringify({ username, id: decodedToken.sub }));
+            localStorage.setItem('user', JSON.stringify({ username, id: decodedToken.sub }));*/
 
             const savedCart = localStorage.getItem('cart');
             if (savedCart) {
