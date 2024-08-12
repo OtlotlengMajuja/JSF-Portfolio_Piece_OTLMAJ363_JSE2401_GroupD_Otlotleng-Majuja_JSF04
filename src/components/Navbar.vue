@@ -138,8 +138,8 @@ export default {
     const isAuthenticated = computed(() => store.getters.isAuthenticated);
     const currentUser = computed(() => store.getters.currentUser);
     const cartItemsCount = computed(() => store.getters.cartItemsCount);
-    const comparisonListCount = computed(() =>
-      store.getters.comparisonListCount()
+    const comparisonListCount = computed(
+      () => store.getters.comparisonListCount
     );
 
     /**
