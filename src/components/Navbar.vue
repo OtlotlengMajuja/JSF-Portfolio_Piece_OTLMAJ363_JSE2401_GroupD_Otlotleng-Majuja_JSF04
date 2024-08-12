@@ -93,6 +93,14 @@
           >
             Cart ({{ cartItemsCount }})
           </router-link>
+          <router-link
+            v-if="isAuthenticated"
+            to="/comparison"
+            class="text-black hover:bg-black hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+            @click="toggleMenu"
+            >Compare ({{ comparisonListCount }})
+          </router-link>
+
           <button
             @click="logout"
             class="text-black hover:bg-black hover:text-white block px-3 py-2 rounded-md text-base font-medium w-full text-left"
