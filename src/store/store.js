@@ -137,7 +137,7 @@ export default createStore({
         },
 
         addToComparisonList(state, product) {
-            if (!state.comparisonList.some(item => item.id === product.id)) {
+            if (state.comparisonList.length < 4 && !state.comparisonList.some(item => item.id === product.id)) {
                 state.comparisonList.push(product);
                 localStorage.setItem('comparisonList', JSON.stringify(state.comparisonList));
             }
@@ -286,10 +286,15 @@ export default createStore({
 
         addToComparisonList({ commit, state }, product) {
             if (state.user) {
-                commit('addToComparisonList', product);
+                if (state.comparisonList.length < 4) {
+                    commit('addToComparisonList', product);
+                } else {
+                    throw new Error('Comparison list is full. Remove an item before adding a new one');
+                }
             } else {
-                throw new Error('User must be logged in to add items to comparison list');
+                throw new Error('User must be logged in to add items to comparison list')
             }
+
         },
 
         removefromComparisonList({ commit, state }, productId) {
