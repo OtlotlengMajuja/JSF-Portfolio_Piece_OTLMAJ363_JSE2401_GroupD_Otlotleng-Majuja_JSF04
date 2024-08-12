@@ -128,8 +128,8 @@ export default {
         const redirectPath = route.query.redirect || "/products";
         router.push(redirectPath);
       } catch (err) {
-        console.log("err = ", err);
-        console.log("error = ", error);
+        /*console.log("err = ", err);
+        console.log("error = ", error);*/
         error.value =
           "Login failed. Please check your username and password and try again.";
       } finally {

@@ -31,6 +31,7 @@ export default {
 
     onMounted(() => {
       store.dispatch("checkAuth");
+      store.dispatch("loadComparisonList");
     });
   },
 };

@@ -39,6 +39,12 @@
           >
             Add to Cart
           </button>
+          <button
+            @click="addToComparison"
+            class="bg-black text-white px-4 py-2 rounded hover:bg-primary-primary-accent2 transition-colors duration-300 mt-4 ml-2"
+          >
+            Add to Comparison
+          </button>
           <router-link
             to="/products"
             class="bg-black text-white px-4 py-2 rounded hover:bg-black"
@@ -134,11 +140,21 @@ export default {
       }
     };
 
+    const addToComparison = () => {
+      try {
+        store.dispatch("addToComparison", product.value);
+        alert("product added to comparison list!");
+      } catch (error) {
+        alert(error.message);
+      }
+    };
+
     return {
       product,
       loading,
       error,
       addToCart,
+      addToComparison,
     };
   },
 };
