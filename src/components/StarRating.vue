@@ -41,5 +41,20 @@ export default {
       required: true,
     },
   },
+
+  methods: {
+    getFillColor(index) {
+      const fullStars = Math.floor(this.rating);
+      const decimal = this.rating - fullStars;
+
+      if (index <= fullStars) {
+        return "var(--primary-accent2)";
+      } else if (index === fullStars + 1 && decimal > 0) {
+        return `url(#partialFill${Math.round(decimal * 100)})`;
+      } else {
+        return "var(--primary-medium)";
+      }
+    },
+  },
 };
 </script>
