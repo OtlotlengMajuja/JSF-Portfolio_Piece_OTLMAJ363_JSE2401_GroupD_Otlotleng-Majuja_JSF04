@@ -143,7 +143,7 @@ export default createStore({
             }
         },
 
-        removefromComparisonList(state, productId) {
+        removeFromComparisonList(state, productId) {
             state.comparisonList = state.comparisonList.filter(item => item.id !== productId);
             localStorage.setItem('comparisonList', JSON.stringify(state.comparisonList));
         },
@@ -297,7 +297,7 @@ export default createStore({
 
         },
 
-        removefromComparisonList({ commit, state }, productId) {
+        removeFromComparisonList({ commit, state }, productId) {
             if (state.user) {
                 commit('removefromComparisonList', productId);
             } else {

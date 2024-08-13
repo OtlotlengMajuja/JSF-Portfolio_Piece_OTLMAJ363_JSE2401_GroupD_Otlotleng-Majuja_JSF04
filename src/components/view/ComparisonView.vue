@@ -115,6 +115,7 @@ export default {
   components: {
     StarRating,
   },
+
   setup() {
     const store = useStore();
 
