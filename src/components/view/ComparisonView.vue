@@ -34,6 +34,18 @@
             </td>
           </tr>
           <tr>
+            <td class="px-4 py-2 border font-semibold">Description</td>
+            <td
+              v-for="product in comparisonList"
+              :key="product.id"
+              class="px-4 py-2 border"
+            >
+              <div class="max-h-40 overflow-y-auto">
+                {{ product.description }}
+              </div>
+            </td>
+          </tr>
+          <tr>
             <td class="px-4 py-2 border font-semibold">Price</td>
             <td
               v-for="product in comparisonList"
@@ -44,6 +56,17 @@
             </td>
           </tr>
           <tr>
+            <td class="px-4 py-2 border font-semibold">Rating</td>
+            <td
+              v-for="products in comparisonList"
+              :key="product.id"
+              class="px-4 py-2 border"
+            >
+              <star-rating :rating="product.rating.rate"></star-rating>
+              <span>({{ product.rating.count }} reviews)</span>
+            </td>
+          </tr>
+          <tr>
             <td class="px-4 py-2 border font-semibold">Category</td>
             <td
               v-for="product in comparisonList"
@@ -51,16 +74,6 @@
               class="px-4 py-2 border"
             >
               {{ product.category }}
-            </td>
-          </tr>
-          <tr>
-            <td class="px-4 py-2 border font-semibold">Description</td>
-            <td
-              v-for="product in comparisonList"
-              :key="product.id"
-              class="px-4 py-2 border"
-            >
-              {{ product.description }}
             </td>
           </tr>
           <tr>
@@ -95,9 +108,13 @@
 <script>
 import { computed } from "vue";
 import { useStore } from "vuex";
+import StarRating from "../StarRating.vue";
 
 export default {
   name: "ComparisonView",
+  components: {
+    StarRating,
+  },
   setup() {
     const store = useStore();
 
