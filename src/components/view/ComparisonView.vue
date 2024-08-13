@@ -58,7 +58,7 @@
           <tr>
             <td class="px-4 py-2 border font-semibold">Rating</td>
             <td
-              v-for="products in comparisonList"
+              v-for="product in comparisonList"
               :key="product.id"
               class="px-4 py-2 border"
             >
@@ -84,7 +84,7 @@
               class="px-4 py-2 border"
             >
               <button
-                @click="removeFromComparison(product.id)"
+                @click="removeFromComparisonList(product.id)"
                 class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
               >
                 Remove
@@ -121,7 +121,7 @@ export default {
 
     const comparisonList = computed(() => store.getters.comparisonList);
 
-    const removeFromComparison = (productId) => {
+    const removeFromComparisonList = (productId) => {
       store.dispatch("removeFromComparisonList", productId);
     };
 
@@ -131,7 +131,7 @@ export default {
 
     return {
       comparisonList,
-      removeFromComparison,
+      removeFromComparisonList,
       clearComparisonList,
     };
   },

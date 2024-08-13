@@ -299,7 +299,7 @@ export default createStore({
 
         removeFromComparisonList({ commit, state }, productId) {
             if (state.user) {
-                commit('removefromComparisonList', productId);
+                commit('removeFromComparisonList', productId);
             } else {
                 throw new Error('User must be logged in to remove items from comparison list');
             }

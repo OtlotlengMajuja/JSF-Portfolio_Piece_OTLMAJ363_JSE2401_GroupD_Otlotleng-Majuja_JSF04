@@ -49,7 +49,7 @@
  */
 export default {
   name: "Header",
-  data() {
+  ref() {
     return {
       /**
        * Indicates whether the mobile menu is open.
