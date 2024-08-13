@@ -22,11 +22,12 @@
         <div class="flex items-center">
           <label for="sort" class="mr-2">Sort by price:</label>
           <select
+            id="sort"
             v-model="sortOrder"
             @change="filterProducts"
             class="border rounded p-2"
           >
-            <option value="">Default</option>
+            <option value="default">Default</option>
             <option value="asc">Lowest to Highest</option>
             <option value="desc">Highest to Lowest</option>
           </select>
