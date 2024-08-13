@@ -25,6 +25,7 @@ export default createStore({
          * @type {string}
          */
         sortOrder: "",
+        theme: 'light',
 
         /**
          * List of product categories.
@@ -71,6 +72,11 @@ export default createStore({
          */
         setSortOrder(state, order) {
             state.sortOrder = order;
+        },
+
+        setTheme(state, theme) {
+            state.theme = theme;
+            localStorage.setitem('theme', theme);
         },
 
         /**
@@ -319,6 +325,16 @@ export default createStore({
                 commit('setComparisonList', JSON.parse(savedList));
             }
         },
+
+        toggleTheme({ commit, state }) {
+            const newTheme = state.theme === 'light' ? 'dark' : 'light';
+            commit('setTheme', newTheme);
+        },
+
+        initTheme({ commit }) {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            commit('settheme', savedTheme);
+        }
     },
     getters: {
         /**
@@ -339,6 +355,8 @@ export default createStore({
                 tempProducts = tempProducts.sort((a, b) => a.price - b.price);
             } else if (state.sortOrder === "desc") {
                 tempProducts = tempProducts.sort((a, b) => b.price - a.price);
+            } else if (state.sortOrder === "default") {
+                tempProducts = [...state.products];
             }
 
             return tempProducts;
@@ -353,5 +371,7 @@ export default createStore({
 
         comparisonList: state => state.comparisonList,
         comparisonListCount: state => state.comparisonList.length,
+
+        currentTheme: state => state.theme,
     },
 });
