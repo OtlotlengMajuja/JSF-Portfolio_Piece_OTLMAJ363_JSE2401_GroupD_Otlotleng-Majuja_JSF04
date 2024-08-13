@@ -118,6 +118,9 @@
         </router-link>
       </div>
     </div>
+    <button @click="toggleTheme" class="ml-4 text-primary-light">
+      {{ isDarkMode ? "Light" : "Dark" }} Mode
+    </button>
   </nav>
 </template>
 
@@ -149,6 +152,7 @@ export default {
     const comparisonListCount = computed(
       () => store.getters.comparisonListCount
     );
+    const isDarkMode = computed(() => store.getters.currentTheme === "dark");
 
     /**
      * Toggles the mobile menu open/closed state.
@@ -166,6 +170,10 @@ export default {
       toggleMenu();
     };
 
+    const toggleTheme = () => {
+      store.dispatch("toggleTheme");
+    };
+
     return {
       isMenuOpen,
       isAuthenticated,
@@ -174,6 +182,7 @@ export default {
       comparisonListCount,
       toggleMenu,
       logout,
+      toggleTheme,
     };
   },
 };
