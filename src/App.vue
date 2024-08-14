@@ -28,7 +28,6 @@ export default {
   },
   setup() {
     const store = useStore();
-
     const isDarkMode = computed(() => store.getters.currentTheme === "dark");
 
     onMounted(() => {

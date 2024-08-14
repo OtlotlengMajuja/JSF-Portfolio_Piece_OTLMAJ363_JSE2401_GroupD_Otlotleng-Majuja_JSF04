@@ -76,7 +76,7 @@ export default createStore({
 
         setTheme(state, theme) {
             state.theme = theme;
-            localStorage.setitem('theme', theme);
+            localStorage.setItem('theme', theme);
         },
 
         /**
@@ -333,7 +333,7 @@ export default createStore({
 
         initTheme({ commit }) {
             const savedTheme = localStorage.getItem('theme') || 'light';
-            commit('settheme', savedTheme);
+            commit('setTheme', savedTheme);
         }
     },
     getters: {
