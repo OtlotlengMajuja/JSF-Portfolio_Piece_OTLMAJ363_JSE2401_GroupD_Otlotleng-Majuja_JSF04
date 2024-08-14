@@ -180,6 +180,7 @@ export default {
       currentUser,
       cartItemsCount,
       comparisonListCount,
+      isDarkMode,
       toggleMenu,
       logout,
       toggleTheme,

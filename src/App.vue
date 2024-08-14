@@ -7,7 +7,7 @@
 
 <script>
 import Navbar from "./components/Navbar.vue";
-import { onMounted } from "vue";
+import { onMounted, computed } from "vue";
 import { useStore } from "vuex";
 
 /**
