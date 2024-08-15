@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :class="{ 'dark-mode': isDarkMode }">
+  <div id="app" :class="{ 'dark-mode': isDarkMode }" :key="theme">
     <navbar></navbar>
     <router-view></router-view>
   </div>
@@ -28,7 +28,8 @@ export default {
   },
   setup() {
     const store = useStore();
-    const isDarkMode = computed(() => store.getters.currentTheme === "dark");
+    const isDarkMode = computed(() => store.state.theme === "dark");
+    const theme = computed(() => store.state.theme);
 
     onMounted(() => {
       store.dispatch("checkAuth");
@@ -38,6 +39,7 @@ export default {
 
     return {
       isDarkMode,
+      theme,
     };
   },
 };
@@ -50,11 +52,13 @@ export default {
   --primary-light: #fcfcfc;
   --primary-accent1: #8c4433;
   --primary-accent2: #c95c3b;
+  --bg-color: #ffffff;
+  --text-color: #000000;
 }
 
 body {
   font-family: BDSans-Regular, sans-serif !important;
-  background-color: var(--primary-light);
+  background-color: var(--bg-color);
   min-height: 100vh;
   transition: background-color 0.3s, color 0.3s;
 }
@@ -65,9 +69,12 @@ body {
   --primary-light: #121425;
   --primary-accent1: #d99b8c;
   --primary-accent2: #e6a38f;
+  --bg-color: #121425;
+  --text-color: #fcfcfc;
 }
 
 * {
   --tw-ring-color: rgba(59, 130, 246, 0.5);
+  transition: background-color 0.3s, color 0.3s;
 }
 </style>
