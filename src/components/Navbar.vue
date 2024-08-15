@@ -153,6 +153,31 @@
   </button>
 </template>
 
+<style scoped>
+.theme-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px;
+  background-color: var(--primary-medium);
+  color: var(--primary-light);
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .theme-toggle {
+    bottom: 10px;
+    right: 10px;
+  }
+}
+</style>
+
 <script>
 import { ref, computed } from "vue";
 import { useStore } from "vuex";
