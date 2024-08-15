@@ -27,7 +27,7 @@
             @change="filterProducts"
             class="border rounded p-2"
           >
-            <option value="default">Default</option>
+            <option value="">Default</option>
             <option value="asc">Lowest to Highest</option>
             <option value="desc">Highest to Lowest</option>
           </select>
