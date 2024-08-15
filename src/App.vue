@@ -59,6 +59,8 @@ export default {
 body {
   font-family: BDSans-Regular, sans-serif !important;
   background-color: var(--bg-color);
+  color: var(--bg-color);
+  color: var(--text-color);
   min-height: 100vh;
   transition: background-color 0.3s, color 0.3s;
 }
@@ -76,5 +78,16 @@ body {
 * {
   --tw-ring-color: rgba(59, 130, 246, 0.5);
   transition: background-color 0.3s, color 0.3s;
+}
+
+.btn {
+  background-color: var(--primary-accent2);
+  color: var(--primary-light);
+}
+
+.card {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--primary-medium);
 }
 </style>

@@ -332,8 +332,13 @@ export default createStore({
         },
 
         initTheme({ commit }) {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            commit('setTheme', savedTheme);
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                commit('setTheme', savedTheme);
+            } else {
+                const systemPrefersDark = window.matchMedia && window.mediaMatch('(prefers-color-scheme: dark').matches;
+                commit('setTheme', systemPrefersDark ? 'dark' : 'light');
+            }
         }
     },
     getters: {
