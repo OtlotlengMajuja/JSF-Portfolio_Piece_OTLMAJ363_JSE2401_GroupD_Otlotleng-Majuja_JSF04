@@ -36,6 +36,7 @@ export default createStore({
         token: null,
         cart: [],
         comparisonList: [],
+        wishlist: [],
     },
     mutations: {
         /**
@@ -162,6 +163,17 @@ export default createStore({
         setComparisonList(state, list) {
             state.comparisonList = list;
         },
+
+        setWishlist(state, wishlist) {
+            state.wishlist = wishlist;
+        },
+
+        addToWishlist(state, product) {
+            if (!state.wishlist.some(item => item.id === product.id)) {
+                state.wishlist.push(product);
+                localStorage.setItem('wishlist', JSON.stringify(state.wishlist))
+            }
+        }
     },
     actions: {
         /**
