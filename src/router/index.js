@@ -5,6 +5,7 @@ import ProductDetails from '../components/page/ProductDetails.vue';
 import Login from '../components/page/Login.vue';
 import CartView from '../components/view/CartView.vue';
 import ComparisonView from '../components/view/ComparisonView.vue';
+import WishlistView from '../components/view/WishlistView.vue';
 import store from '../store/store';
 
 /**
@@ -64,7 +65,13 @@ const routes = [
         name: 'Comparison',
         component: ComparisonView,
         meta: { requiresAuth: true }
-    }
+    },
+    {
+        path: '/wishlist',
+        name: 'Wishlist',
+        component: WishlistView,
+        meta: { requiresAuth: true }
+    },
 ];
 
 /**
