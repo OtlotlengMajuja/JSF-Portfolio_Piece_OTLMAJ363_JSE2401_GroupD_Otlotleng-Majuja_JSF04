@@ -173,6 +173,16 @@ export default createStore({
                 state.wishlist.push(product);
                 localStorage.setItem('wishlist', JSON.stringify(state.wishlist))
             }
+        },
+
+        removeFromWishlist(state, productId) {
+            state.wishlist = state.wishlist.filter(item => item.id !== productId);
+            localStorage.setItem('wishlist', JSON.stringify(state.wishlist));
+        },
+
+        clearWishlist(state) {
+            state.wishlist = [];
+            localStorage.removeItem('wishlist');
         }
     },
     actions: {
