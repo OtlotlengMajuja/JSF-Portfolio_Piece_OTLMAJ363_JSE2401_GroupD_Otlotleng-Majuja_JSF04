@@ -35,18 +35,24 @@
           </div>
           <button
             @click="addToCart"
-            class="bg-black text-white px-4 py-2 rounded hover:bg-primary-accent1 transition-colors duration-300 mt-4"
+            class="bg-black text-white px-4 py-2 rounded hover:bg-pink-600 transition-colors duration-300 mt-4"
           >
             Add to Cart
           </button>
           <button
+            @click="addToWishlist"
+            class="bg-black text-white px-4 py-2 rounded hover:bg-pink-600 transition-colors duration-300 mt-4 ml-2"
+          >
+            Add to Wishlist
+          </button>
+          <button
             @click="addToComparisonList"
-            class="bg-black text-white px-4 py-2 rounded hover:bg-primary-primary-accent2 transition-colors duration-300 mt-4 ml-2"
+            class="bg-black text-white px-4 py-2 rounded hover:bg-pink-600 transition-colors duration-300 mt-4 ml-2"
           >
             Add to Comparison
           </button>
           <button
-            class="bg-black text-white px-4 py-2 rounded hover:bg-black transition-colors duration-300 mt-4 ml-2"
+            class="bg-black text-white px-4 py-2 rounded hover:bg-pink-600 transition-colors duration-300 mt-4 ml-2"
           >
             <router-link to="/products"> Back to Products </router-link>
           </button>
