@@ -151,6 +151,14 @@
       />
     </svg>
   </button>
+  <router-link
+    v-if="isAuthenticated"
+    to="/wishlist"
+    class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+    @click="toggleMenu"
+  >
+    Wishlist ({{ wishlistItemsCount }})
+  </router-link>
 </template>
 
 <style scoped>
@@ -228,6 +236,8 @@ export default {
       store.dispatch("toggleTheme");
     };
 
+    const wishlistItemsCount = computed(() => store.getters.wishlistItemsCount);
+
     return {
       isMenuOpen,
       isAuthenticated,
@@ -238,6 +248,7 @@ export default {
       toggleMenu,
       logout,
       toggleTheme,
+      wishlistItemsCount,
     };
   },
 };
