@@ -361,7 +361,38 @@ export default createStore({
                 const systemPrefersDark = window.matchMedia && window.mediaMatch('(prefers-color-scheme: dark').matches;
                 commit('setTheme', systemPrefersDark ? 'dark' : 'light');
             }
-        }
+        },
+
+        addToWishlist({ commit, state }, product) {
+            if (state.user) {
+                commit('addToWishlist', product);
+            } else {
+                throw new Error('User must be logged in to add items to wishlist');
+            }
+        },
+
+        removeFromWishlist({ commit, state }, productId) {
+            if (state.user) {
+                commit('removeFromWishlist', productId);
+            } else {
+                throw new Error('User must be logged in to remove items from wishlist');
+            }
+        },
+
+        clearWishlist({ commit, state }) {
+            if (state.user) {
+                commit('clearWishlist');
+            } else {
+                throw new Error('User must be logged in to clear wishlist');
+            }
+        },
+
+        loadWishlist({ commit }) {
+            const savedWishlist = localStorage.getItem('wishlist');
+            if (savedWishlist) {
+                commit('setWishlist', JSON.parse(savedWishlist));
+            }
+        },
     },
     getters: {
         /**
