@@ -279,6 +279,11 @@ export default createStore({
             if (savedCart) {
                 commit('setCart', JSON.parse(savedCart));
             }
+
+            const savedWishlist = localStorage.getItem('wishlist');
+            if (savedWishlist) {
+                commit('setWishlist', JSON.parse(savedWishlist));
+            }
         },
 
         addToCart({ commit, state }, product) {
@@ -431,5 +436,8 @@ export default createStore({
         comparisonListCount: state => state.comparisonList.length,
 
         currentTheme: state => state.theme,
+
+        wishlistItems: state => state.wishlist,
+        wishlistItemsCount: state => state.wishlist.length,
     },
 });
