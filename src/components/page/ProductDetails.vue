@@ -154,12 +154,22 @@ export default {
       }
     };
 
+    const addToWishlist = () => {
+      try {
+        store.dispatch("addToWishlist", product.value);
+        alert("Product added to wishlist!");
+      } catch (error) {
+        alert(error.message);
+      }
+    };
+
     return {
       product,
       loading,
       error,
       addToCart,
       addToComparisonList,
+      addToWishlist,
     };
   },
 };
