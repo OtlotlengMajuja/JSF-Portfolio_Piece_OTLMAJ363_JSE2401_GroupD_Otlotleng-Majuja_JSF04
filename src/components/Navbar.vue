@@ -84,7 +84,7 @@
       <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
         <router-link
           to="/products"
-          class="text-black hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+          class="text-black hover:bg-black hover:text-white block px-3 py-2 rounded-md text-base font-medium"
           @click="toggleMenu"
           >Products</router-link
         >
