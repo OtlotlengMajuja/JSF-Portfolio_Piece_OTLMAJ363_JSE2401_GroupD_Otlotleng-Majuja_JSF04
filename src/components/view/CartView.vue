@@ -57,7 +57,7 @@
           </p>
           <button
             @click="removeFromCart(item.id)"
-            class="text-red-500 hover:text-red-700 mt-2"
+            class="text-red-800 hover:text-red-900 mt-2"
           >
             Remove
           </button>
@@ -67,7 +67,7 @@
         <p class="text-xl font-bold">Total: ${{ cartTotal.toFixed(2) }}</p>
         <button
           @click="clearCart"
-          class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors duration-300"
+          class="bg-red-800 text-white px-4 py-2 rounded hover:bg-red-900 transition-colors duration-300"
         >
           Clear Cart
         </button>

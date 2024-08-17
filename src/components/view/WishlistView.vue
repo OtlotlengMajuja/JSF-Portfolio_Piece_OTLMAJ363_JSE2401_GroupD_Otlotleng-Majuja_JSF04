@@ -15,7 +15,7 @@
         </div>
         <button
           @click="clearWishlist"
-          class="bg-red-500 text-white px-4 py-2 rounded"
+          class="bg-red-800 text-white px-4 py-2 rounded"
         >
           Clear Wishlist
         </button>
@@ -38,13 +38,13 @@
           <div class="flex justify-between">
             <button
               @click="addToCart(item)"
-              class="bg-blue-500 text-white px-3 py-1 rounded"
+              class="bg-black text-white px-3 py-1 rounded"
             >
               Add to Cart
             </button>
             <button
               @click="removeFromWishlist(item.id)"
-              class="bg-red-500 text-white px-3 py-1 rounded"
+              class="bg-red-800 text-white px-3 py-1 rounded"
             >
               Remove
             </button>
