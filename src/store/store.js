@@ -25,7 +25,7 @@ export default createStore({
          * @type {string}
          */
         sortOrder: "",
-        theme: 'light',
+        theme: localStorage.getItem('theme') || 'light',
 
         /**
          * List of product categories.
@@ -78,6 +78,7 @@ export default createStore({
         setTheme(state, theme) {
             state.theme = theme;
             localStorage.setItem('theme', theme);
+            document.documentElement.setAttribute('data-theme', theme);
         },
 
         /**
@@ -363,8 +364,8 @@ export default createStore({
             if (savedTheme) {
                 commit('setTheme', savedTheme);
             } else {
-                const systemPrefersDark = window.matchMedia && window.mediaMatch('(prefers-color-scheme: dark').matches;
-                commit('setTheme', systemPrefersDark ? 'dark' : 'light');
+                const prefersDark = window.matchMedia && window.mediaMatch('(prefers-color-scheme: dark').matches;
+                commit('setTheme', prefersDark ? 'dark' : 'light');
             }
         },
 

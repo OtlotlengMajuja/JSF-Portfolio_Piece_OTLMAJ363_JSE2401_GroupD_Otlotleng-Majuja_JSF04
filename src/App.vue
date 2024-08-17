@@ -28,8 +28,8 @@ export default {
   },
   setup() {
     const store = useStore();
-    const isDarkMode = computed(() => store.state.theme === "dark");
-    const theme = computed(() => store.state.theme);
+    const isDarkMode = computed(() => store.getters.currentTheme === "dark");
+    const theme = computed(() => store.getters.currentTheme);
 
     onMounted(() => {
       store.dispatch("checkAuth");
@@ -59,7 +59,6 @@ export default {
 body {
   font-family: BDSans-Regular, sans-serif !important;
   background-color: var(--bg-color);
-  color: var(--bg-color);
   color: var(--text-color);
   min-height: 100vh;
   transition: background-color 0.3s, color 0.3s;
@@ -76,7 +75,6 @@ body {
 }
 
 * {
-  --tw-ring-color: rgba(59, 130, 246, 0.5);
   transition: background-color 0.3s, color 0.3s;
 }
 

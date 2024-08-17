@@ -286,8 +286,6 @@ export default {
       store.dispatch("toggleTheme");
     };
 
-    const wishlistItemsCount = computed(() => store.getters.wishlistItemsCount);
-
     return {
       isMenuOpen,
       isAuthenticated,
@@ -298,7 +296,6 @@ export default {
       toggleMenu,
       logout,
       toggleTheme,
-      wishlistItemsCount,
     };
   },
 };
