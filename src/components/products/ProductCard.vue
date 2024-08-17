@@ -11,7 +11,7 @@
       <p class="text-sm text-gray-500 mb-2">{{ product.category }}</p>
       <router-link
         :to="{ name: 'ProductDetails', params: { id: product.id } }"
-        class="bg-black text-white px-4 py-2 rounded hover:bg-black"
+        class="bg-black text-white px-4 py-2 rounded hover:bg-pink-600"
       >
         View Details
       </router-link>

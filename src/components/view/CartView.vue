@@ -4,7 +4,7 @@
       <h1 class="text-2xl font-bold">Your Shopping Cart</h1>
       <router-link
         to="/products"
-        class="bg-black text-white px-4 py-2 rounded hover:bg-black"
+        class="bg-black text-white px-4 py-2 rounded hover:bg-pink-600"
         @click="toggleMenu"
       >
         Back to Products
@@ -57,7 +57,7 @@
           </p>
           <button
             @click="removeFromCart(item.id)"
-            class="text-red-800 hover:text-red-900 mt-2"
+            class="text-pink-600 hover:text-pink-800 mt-2"
           >
             Remove
           </button>
@@ -67,7 +67,7 @@
         <p class="text-xl font-bold">Total: ${{ cartTotal.toFixed(2) }}</p>
         <button
           @click="clearCart"
-          class="bg-red-800 text-white px-4 py-2 rounded hover:bg-red-900 transition-colors duration-300"
+          class="bg-pink-600 text-white px-4 py-2 rounded hover:bg-pink-800 transition-colors duration-300"
         >
           Clear Cart
         </button>
