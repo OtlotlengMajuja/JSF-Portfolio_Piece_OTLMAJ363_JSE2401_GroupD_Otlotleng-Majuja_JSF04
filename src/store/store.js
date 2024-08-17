@@ -1,4 +1,5 @@
 import { createStore } from 'vuex';
+import { addDays, format } from 'date-fns';
 
 export default createStore({
     state: {
@@ -37,6 +38,7 @@ export default createStore({
         cart: [],
         comparisonList: [],
         wishlist: [],
+        discountedProducts: [],
     },
     mutations: {
         /**
@@ -184,7 +186,11 @@ export default createStore({
         clearWishlist(state) {
             state.wishlist = [];
             localStorage.removeItem('wishlist');
-        }
+        },
+
+        setDiscountedProducts(state, products) {
+            state.discountedProducts = products;
+        },
     },
     actions: {
         /**
@@ -399,6 +405,30 @@ export default createStore({
                 commit('setWishlist', JSON.parse(savedWishlist));
             }
         },
+
+        generateDiscountedProducts({ commit, state }) {
+            const allProducts = [...state.products];
+            const discountedProducts = [];
+
+            for (let i = 0; i < 5 && allProducts.length > 0; i++) {
+                const randomIndex = Math.floor(Math.random() * allProducts.length);
+                const product = allProducts.splice(randomIndex, 1)[0];
+
+                const discountPercentage = Math.floor(Math.random() * 41) + 10; // 10% to 50% discount
+                const discountedPrice = product.price * (1 - discountPercentage / 100);
+
+                const saleEndDate = addDays(new Date(), Math.floor(Math.random() * 14) + 1); // 1 to 14 days from now
+
+                discountedProducts.push({
+                    ...product,
+                    discountPercentage,
+                    discountedPrice,
+                    saleEndDate: format(saleEndDate, 'yyyy-MM-dd'),
+                });
+            }
+
+            commit('setDiscountedProducts', discountedProducts);
+        },
     },
     getters: {
         /**
@@ -440,5 +470,7 @@ export default createStore({
 
         wishlistItems: state => state.wishlist,
         wishlistItemsCount: state => state.wishlist.length,
+
+        discountedProducts: state => state.discountedProducts,
     },
 });
