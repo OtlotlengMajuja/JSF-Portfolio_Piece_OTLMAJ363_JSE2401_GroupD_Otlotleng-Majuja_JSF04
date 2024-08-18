@@ -6,6 +6,7 @@ import Login from '../components/page/Login.vue';
 import CartView from '../components/view/CartView.vue';
 import ComparisonView from '../components/view/ComparisonView.vue';
 import WishlistView from '../components/view/WishlistView.vue';
+import DiscountedProductDetails from '../components/discount/DiscountedProductDetails.vue';
 import store from '../store/store';
 
 /**
@@ -71,6 +72,11 @@ const routes = [
         name: 'Wishlist',
         component: WishlistView,
         meta: { requiresAuth: true }
+    },
+    {
+        path: '/discounted-product/:id',
+        name: 'DiscountedProductDetails',
+        component: DiscountedProductDetails,
     },
 ];
 

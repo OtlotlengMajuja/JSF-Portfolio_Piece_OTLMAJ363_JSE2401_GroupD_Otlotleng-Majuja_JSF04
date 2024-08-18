@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import DiscountCarousel from "../DiscountCarousel.vue";
+import DiscountCarousel from "../discount/DiscountCarousel.vue";
 
 export default {
   name: "Home",
