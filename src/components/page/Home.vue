@@ -14,9 +14,10 @@
         </ul>
       </div>
       <div class="bg-primary-medium p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-4">Special Offers</h2>
-        <p>Get 20% off on your first purchase!</p>
-        <p>Free shipping on orders over $50</p>
+        <h2 class="text-2xl font-semibold mb-4">Why Choose Us?</h2>
+        <p>Top-quality products</p>
+        <p>Excellent customer service</p>
+        <p>Fast and reliable shipping</p>
       </div>
     </div>
     <router-link
@@ -29,7 +30,12 @@
 </template>
 
 <script>
+import DiscountCarousel from "../DiscountCarousel.vue";
+
 export default {
   name: "Home",
+  components: {
+    DiscountCarousel,
+  },
 };
 </script>
