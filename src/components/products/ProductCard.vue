@@ -15,16 +15,17 @@
       >
         View Details
       </router-link>
-      <div class="flex space-x-2">
+      <div class="flex space-x-2 mt-2">
         <button
-          @click="addToWishlist"
-          class="p-2 rounded-full hover:bg-pink-600"
+          @click="toggleWishlist"
+          class="p-2 rounded-full hover:bg-gray-100"
+          :class="{ 'text-pink-500': isInWishlist }"
           title="Add to Wishlist"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6"
-            fill="none"
+            :fill="isInWishlist ? 'currentColor' : 'none'"
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
@@ -62,6 +63,7 @@
 </template>
 
 <script>
+import store from "../../store/store";
 /**
  * ProductCard component
  *
@@ -90,6 +92,43 @@ export default {
       type: Object,
       required: true,
     },
+  },
+
+  setup(props) {
+    const store = useStore();
+
+    const isInWishlist = computed(() => {
+      return store.getters.wishlistItems.some(
+        (item) => item.id === props.product.id
+      );
+    });
+
+    const toggleWishlist = () => {
+      try {
+        if (isInWishlist.value) {
+          store.dispatch("removeFromWishlist", props.product.id);
+        } else {
+          store.dispatch("addToWishlist", props.product);
+        }
+      } catch (error) {
+        alert(error.message);
+      }
+    };
+
+    const addToCart = () => {
+      try {
+        store.dispatch("addToCart", props.product);
+        alert("Product added to cart!");
+      } catch (error) {
+        alert(error.message);
+      }
+    };
+
+    return {
+      isInWishlist,
+      toggleWishlist,
+      addToCart,
+    };
   },
 };
 </script>
