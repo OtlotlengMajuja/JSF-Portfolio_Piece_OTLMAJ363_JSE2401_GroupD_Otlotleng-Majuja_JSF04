@@ -35,8 +35,8 @@ export default {
       store.dispatch("checkAuth");
       store.dispatch("loadComparisonList");
       store.dispatch("initTheme");
-      await store.dispatch("fetchProducts");
-      store.dispatch("generateDiscountedProducts");
+      // await store.dispatch("fetchProducts");
+      // store.dispatch("generateDiscountedProducts");
     });
 
     return {
