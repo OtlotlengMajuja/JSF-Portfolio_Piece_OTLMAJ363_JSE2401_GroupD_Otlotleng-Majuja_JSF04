@@ -30,12 +30,7 @@
 </template>
 
 <script>
-import DiscountCarousel from "../discount/DiscountCarousel.vue";
-
 export default {
   name: "Home",
-  components: {
-    DiscountCarousel,
-  },
 };
 </script>
