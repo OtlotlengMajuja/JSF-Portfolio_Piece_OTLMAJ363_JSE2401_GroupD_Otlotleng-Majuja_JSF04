@@ -41,7 +41,25 @@
               class="px-4 py-2 border"
             >
               <div class="max-h-40 overflow-y-auto">
-                {{ product.description }}
+                <p v-if="!expandedDescriptions[product.id]">
+                  {{ truncateDescription(product.description) }}
+                  <button
+                    v-if="product.description.length > 100"
+                    @click="toggleDescription(product.id)"
+                    class="text-blue-500 hover:underline ml-1"
+                  >
+                    See more
+                  </button>
+                </p>
+                <p v-else>
+                  {{ product.description }}
+                  <button
+                    @click="toggleDescription(product.id)"
+                    class="text-blue-500 hover:underline ml-1"
+                  >
+                    See less
+                  </button>
+                </p>
               </div>
             </td>
           </tr>
@@ -120,6 +138,7 @@ export default {
     const store = useStore();
 
     const comparisonList = computed(() => store.getters.comparisonList);
+    const expandedDescriptions = ref({});
 
     const removeFromComparisonList = (productId) => {
       store.dispatch("removeFromComparisonList", productId);
@@ -129,10 +148,24 @@ export default {
       store.dispatch("clearComparisonList");
     };
 
+    const truncateDescription = (description) => {
+      return description.length > 100
+        ? description.slice(0, 100) + "..."
+        : description;
+    };
+
+    const toggleDescription = (productId) => {
+      expandedDescriptions.value[productId] =
+        !expandedDescriptions.value[productId];
+    };
+
     return {
       comparisonList,
       removeFromComparisonList,
       clearComparisonList,
+      expandedDescriptions,
+      truncateDescription,
+      toggleDescription,
     };
   },
 };
