@@ -63,7 +63,9 @@
 </template>
 
 <script>
-import store from "../../store/store";
+import { computed } from "vue";
+import { useStore } from "vuex";
+
 /**
  * ProductCard component
  *
