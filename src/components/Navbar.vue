@@ -4,7 +4,7 @@
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center">
           <router-link to="/" class="flex items-center">
-            <img src="../../logo.png" class="h-8 w-8" alt="Emercom Logo" />
+            <img src="/logo.png" class="h-8 w-8" alt="Emercom Logo" />
             <span class="ml-2 text-black text-lg font-semibold">Emercom</span>
           </router-link>
         </div>
@@ -296,6 +296,7 @@ export default {
       toggleMenu,
       logout,
       toggleTheme,
+      wishlistItemsCount,
     };
   },
 };
