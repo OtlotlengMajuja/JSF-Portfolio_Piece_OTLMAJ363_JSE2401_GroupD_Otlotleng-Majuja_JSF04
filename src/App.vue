@@ -28,15 +28,28 @@ export default {
   },
   setup() {
     const store = useStore();
+
+    /**
+     * Computed property that determines if the dark mode is active.
+     * @type {boolean}
+     */
     const isDarkMode = computed(() => store.getters.currentTheme === "dark");
+
+    /**
+     * Computed property that returns the current theme.
+     * @type {string}
+     */
     const theme = computed(() => store.getters.currentTheme);
 
+    /**
+     * Lifecycle hook that runs when the component is mounted.
+     *
+     * Dispatches Vuex actions to check authentication, load the comparison list, and initialize the theme.
+     */
     onMounted(() => {
       store.dispatch("checkAuth");
       store.dispatch("loadComparisonList");
       store.dispatch("initTheme");
-      // await store.dispatch("fetchProducts");
-      // store.dispatch("generateDiscountedProducts");
     });
 
     return {
@@ -48,6 +61,9 @@ export default {
 </script>
 
 <style>
+/**
+ * Root variables defining the color scheme for light mode.
+ */
 :root {
   --primary-dark: #121425;
   --primary-medium: #4f2c2c;
@@ -58,6 +74,12 @@ export default {
   --text-color: #000000;
 }
 
+/**
+ * Base styles for the body element.
+ *
+ * These styles set the default background and text colors, as well as
+ * ensuring a minimum height and smooth transitions between color changes.
+ */
 body {
   font-family: BDSans-Regular, sans-serif !important;
   background-color: var(--bg-color);
@@ -66,6 +88,11 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
+/**
+ * Dark mode styles.
+ *
+ * Overrides the light mode variables with dark mode equivalents.
+ */
 .dark-mode {
   --primary-dark: #fcfcfc;
   --primary-medium: #a07373;
@@ -76,15 +103,29 @@ body {
   --text-color: #fcfcfc;
 }
 
+/**
+ * Global transition for background and text colors.
+ */
 * {
   transition: background-color 0.3s, color 0.3s;
 }
 
+/**
+ * Styles for buttons.
+ *
+ * Buttons use the primary accent color for their background and the primary light color for text.
+ */
 .btn {
   background-color: var(--primary-accent2);
   color: var(--primary-light);
 }
 
+/**
+ * Styles for card components.
+ *
+ * Cards have a background color and text color matching the theme, with a border
+ * matching the primary medium color.
+ */
 .card {
   background-color: var(--bg-color);
   color: var(--text-color);
