@@ -12,19 +12,17 @@
           <div class="ml-10 flex items-baseline space-x-4">
             <router-link
               to="/products"
-              class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              class="text-black hover:bg-pink-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               @click="toggleMenu"
               >Products</router-link
             >
             <template v-if="isAuthenticated">
-              <span
-                class="text-gray-300 px-3 py-2 rounded-md text-sm font-medium"
-              >
+              <span class="text-black px-3 py-2 rounded-md text-sm font-medium">
                 Welcome, {{ currentUser.username }}
               </span>
               <router-link
                 to="/cart"
-                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                class="text-black hover:bg-pink-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 @click="toggleMenu"
               >
                 Cart ({{ cartItemsCount }})
@@ -32,21 +30,21 @@
               <router-link
                 v-if="isAuthenticated"
                 to="/comparison"
-                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                class="text-black hover:bg-pink-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 @click="toggleMenu"
                 >Compare ({{ comparisonListCount }})
               </router-link>
               <router-link
                 v-if="isAuthenticated"
                 to="/wishlist"
-                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                class="text-black hover:bg-pink-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 @click="toggleMenu"
               >
                 Wishlist ({{ wishlistItemsCount }})
               </router-link>
               <button
                 @click="logout"
-                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                class="text-black hover:bg-pink-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 Logout
               </button>

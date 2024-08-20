@@ -46,7 +46,7 @@
                   <button
                     v-if="product.description.length > 100"
                     @click="toggleDescription(product.id)"
-                    class="text-blue-500 hover:underline ml-1"
+                    class="text-pink-600 hover:underline ml-1"
                   >
                     See more
                   </button>
@@ -55,7 +55,7 @@
                   {{ product.description }}
                   <button
                     @click="toggleDescription(product.id)"
-                    class="text-blue-500 hover:underline ml-1"
+                    class="text-pink-600 hover:underline ml-1"
                   >
                     See less
                   </button>
