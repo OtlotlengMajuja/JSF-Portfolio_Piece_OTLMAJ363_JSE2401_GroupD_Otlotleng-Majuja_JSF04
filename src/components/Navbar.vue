@@ -204,11 +204,10 @@ import { useRouter } from "vue-router";
  * Navbar component
  *
  * This component represents the navigation bar for the application.
+ * It includes links to different sections of the application such as products, cart, comparison, and wishlist.
+ * It also supports user authentication with login/logout functionality.
  *
  * @component
- * @property {boolean} isMenuOpen - Indicates whether the mobile menu is open.
- * @property {boolean} isAuthenticated - Indicates whether the user is authenticated.
- * @property {Object} currentUser - The current authenticated user.
  */
 export default {
   name: "Navbar",
@@ -217,24 +216,63 @@ export default {
     const router = useRouter();
     const isMenuOpen = ref(false);
 
+    /**
+     * Computed property to check if the user is authenticated.
+     *
+     * @type {import('vue').ComputedRef<boolean>}
+     */
     const isAuthenticated = computed(() => store.getters.isAuthenticated);
+
+    /**
+     * Computed property to get the current authenticated user.
+     *
+     * @type {import('vue').ComputedRef<Object>}
+     */
     const currentUser = computed(() => store.getters.currentUser);
+
+    /**
+     * Computed property to get the count of items in the cart.
+     *
+     * @type {import('vue').ComputedRef<number>}
+     */
     const cartItemsCount = computed(() => store.getters.cartItemsCount);
+
+    /**
+     * Computed property to get the count of items in the comparison list.
+     *
+     * @type {import('vue').ComputedRef<number>}
+     */
     const comparisonListCount = computed(
       () => store.getters.comparisonListCount
     );
+
+    /**
+     * Computed property to check if the current theme is dark mode.
+     *
+     * @type {import('vue').ComputedRef<boolean>}
+     */
     const isDarkMode = computed(() => store.getters.currentTheme === "dark");
+
+    /**
+     * Computed property to get the count of items in the wishlist.
+     *
+     * @type {import('vue').ComputedRef<number>}
+     */
     const wishlistItemsCount = computed(() => store.getters.wishlistItemsCount);
 
     /**
      * Toggles the mobile menu open/closed state.
+     *
+     * @function
      */
     const toggleMenu = () => {
       isMenuOpen.value = !isMenuOpen.value;
     };
 
     /**
-     * Logs out the current user.
+     * Logs out the current user and redirects to the login page.
+     *
+     * @function
      */
     const logout = () => {
       store.dispatch("logout");
@@ -242,6 +280,11 @@ export default {
       toggleMenu();
     };
 
+    /**
+     * Toggles the application theme between light and dark mode.
+     *
+     * @function
+     */
     const toggleTheme = () => {
       store.dispatch("toggleTheme");
     };

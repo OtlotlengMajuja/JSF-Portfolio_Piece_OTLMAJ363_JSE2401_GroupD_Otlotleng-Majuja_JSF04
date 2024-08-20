@@ -73,11 +73,6 @@ const routes = [
         component: WishlistView,
         meta: { requiresAuth: true }
     },
-    {
-        //path: '/discounted-product/:id',
-        //name: 'DiscountedProductDetails',
-        //component: DiscountedProductDetails,
-    },
 ];
 
 /**

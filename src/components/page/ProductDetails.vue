@@ -6,6 +6,7 @@
     </div>
     <div v-else class="bg-white rounded-lg shadow overflow-hidden">
       <div class="md:flex">
+        <!-- Product details section-->
         <div class="md:flex-shrink-0">
           <img
             :src="product.image"
@@ -92,12 +93,127 @@
           </button>
         </div>
       </div>
+
+      <!-- Reviews section -->
+      <div class="p-8 border-t">
+        <h3 class="text-xl font-bold mb-4">Reviews</h3>
+
+        <!-- Add review form for logged-in users -->
+        <div v-if="isLoggedIn" class="mb-6">
+          <h4 class="text-lg font-semibold mb-2">Leave a Review</h4>
+          <div class="mb-2">
+            <label class="block mb-1">Rating:</label>
+            <select v-model="newReview.rating" class="border rounded p-1">
+              <option v-for="i in 5" :key="i" :value="i">{{ i }} stars</option>
+            </select>
+          </div>
+          <div class="mb-2">
+            <label class="block mb-1">Comment:</label>
+            <textarea
+              v-model="newReview.comment"
+              class="w-full border rounded p-2"
+              rows="3"
+            ></textarea>
+          </div>
+          <button
+            @click="submitReview"
+            class="bg-black text-white px-4 py-2 rounded hover:bg-pink-600"
+          >
+            Submit Review
+          </button>
+        </div>
+
+        <!-- Review sorting options -->
+        <div class="mb-4">
+          <label class="mr-2">Sort by:</label>
+          <select v-model="sortOption" class="border rounded p-1">
+            <option value="default">Default</option>
+            <option value="date">Date</option>
+            <option value="rating">Rating</option>
+          </select>
+        </div>
+
+        <!-- List of reviews -->
+        <div
+          v-for="review in sortedReviews"
+          :key="review.id"
+          class="mb-4 p-4 border rounded"
+        >
+          <div class="flex justify-between items-center mb-2">
+            <div>
+              <star-rating :rating="review.rating"></star-rating>
+              <span class="ml-2 text-sm text-gray-600">{{
+                formatDate(review.timestamp)
+              }}</span>
+            </div>
+            <div v-if="isCurrentUserReview(review)">
+              <button @click="openEditModal(review)" class="text-black mr-2">
+                Edit
+              </button>
+              <button @click="deleteReview(review)" class="text-pink-600">
+                Delete
+              </button>
+            </div>
+          </div>
+          <p class="mb-2">{{ review.comment }}</p>
+          <p class="text-sm text-gray-600">
+            By: {{ review.userName }} {{ review.userSurname }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Review Modal -->
+    <div
+      v-if="showEditModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+    >
+      <div class="bg-white p-6 rounded-lg">
+        <h3 class="text-xl font-bold mb-4">Edit Review</h3>
+        <div class="mb-2">
+          <label class="block mb-1">Rating:</label>
+          <select v-model="editingReview.rating" class="border rounded p-1">
+            <option v-for="i in 5" :key="i" :value="i">{{ i }} stars</option>
+          </select>
+        </div>
+        <div class="mb-2">
+          <label class="block mb-1">Comment:</label>
+          <textarea
+            v-model="editingReview.comment"
+            class="w-full border rounded p-2"
+            rows="3"
+          ></textarea>
+        </div>
+        <div class="flex justify-end">
+          <button
+            @click="cancelEdit"
+            class="bg-black text-white px-4 py-2 rounded mr-2"
+          >
+            Cancel
+          </button>
+          <button
+            @click="saveEdit"
+            class="bg-pink-600 text-white px-4 py-2 rounded"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification component -->
+    <div
+      v-if="notification"
+      class="fixed bottom-4 right-4 p-4 rounded-lg shadow-lg"
+      :class="notificationClass"
+    >
+      {{ notification.message }}
     </div>
   </div>
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
 import StarRating from "../StarRating.vue";
 import { useStore } from "vuex";
@@ -140,6 +256,22 @@ export default {
      */
     const error = ref(null);
 
+    const reviews = ref([]);
+    const sortOption = ref("date");
+    const newReview = ref({ rating: 5, comment: "" });
+    const showEditModal = ref(false);
+    const editingReview = ref(null);
+    const notification = ref(null);
+
+    const isLoggedIn = computed(() => store.getters.isAuthenticated);
+    const currentUser = computed(() => store.getters.currentUser);
+
+    const isInWishlist = computed(() => {
+      return store.getters.wishlistItems.some(
+        (item) => item.id === product.value.id
+      );
+    });
+
     /**
      * Fetches the product details based on the given ID.
      *
@@ -155,13 +287,149 @@ export default {
           throw new Error("Failed to fetch product");
         }
         product.value = await response.json();
+        loadReviews();
       } catch (err) {
         console.error("Error fetching product:", err);
         error.value = err.message;
+        showNotification("error", "Failed to load product. Please try again.");
       } finally {
         loading.value = false;
       }
     };
+
+    const loadReviews = () => {
+      const storedReviews = localStorage.getItem(`reviews_${product.value.id}`);
+      if (storedReviews) {
+        reviews.value = JSON.parse(storedReviews) || [];
+      } else {
+        reviews.value = [];
+      }
+    };
+
+    const saveReviews = () => {
+      localStorage.setItem(
+        `reviews_${product.value.id}`,
+        JSON.stringify(reviews.value)
+      );
+    };
+
+    const validateReview = (review) => {
+      if (review.rating < 1 || review.rating > 5) {
+        throw new Error("Rating must be between 1 and 5");
+      }
+      if (review.comment.trim().length < 5) {
+        throw new Error("Comment must be at least 5 characters long");
+      }
+    };
+
+    const submitReview = () => {
+      if (!isLoggedIn.value) {
+        showNotification("error", "You must be logged in to leave a review.");
+        return;
+      }
+
+      try {
+        validateReview(newReview.value);
+
+        const review = {
+          id: Date.now(),
+          ...newReview.value,
+          userName: currentUser.value.username,
+          userSurname: "", // Add surname if available in user object
+          timestamp: new Date().toISOString(),
+        };
+
+        reviews.value.push(review);
+        saveReviews();
+        newReview.value = { rating: 5, comment: "" };
+        showNotification(
+          "success",
+          "Your review has been submitted successfully!"
+        );
+      } catch (err) {
+        showNotification("error", err.message);
+      }
+    };
+
+    const openEditModal = (review) => {
+      editingReview.value = { ...review };
+      showEditModal.value = true;
+    };
+
+    const cancelEdit = () => {
+      editingReview.value = null;
+      showEditModal.value = false;
+    };
+
+    const saveEdit = () => {
+      try {
+        validateReview(editingReview.value);
+
+        const index = reviews.value.findIndex(
+          (r) => r.id === editingReview.value.id
+        );
+        if (index !== -1) {
+          reviews.value[index] = {
+            ...editingReview.value,
+            timestamp: new Date().toISOString(),
+          };
+          saveReviews();
+          showNotification(
+            "success",
+            "Your review has been updated successfully!"
+          );
+        }
+        cancelEdit();
+      } catch (err) {
+        showNotification("error", err.message);
+      }
+    };
+
+    const deleteReview = (review) => {
+      if (confirm("Are you sure you want to delete this review?")) {
+        reviews.value = reviews.value.filter((r) => r.id !== review.id);
+        saveReviews();
+        showNotification("success", "Your review has been deleted.");
+      }
+    };
+
+    const isCurrentUserReview = (review) => {
+      return isLoggedIn.value && currentUser.value.username === review.userName;
+    };
+
+    const formatDate = (dateString) => {
+      return new Date(dateString).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+    };
+
+    const sortedReviews = computed(() => {
+      return [...reviews.value].sort((a, b) => {
+        if (sortOption.value === "date") {
+          return new Date(b.timestamp) - new Date(a.timestamp);
+        } else if (sortOption.value === "rating") {
+          return b.rating - a.rating;
+        } else {
+          return 0;
+        }
+      });
+    });
+
+    const showNotification = (type, message) => {
+      notification.value = { type, message };
+      setTimeout(() => {
+        notification.value = null;
+      }, 3000);
+    };
+
+    const notificationClass = computed(() => {
+      if (!notification.value) return "";
+      return notification.value.type === "success"
+        ? "bg-green-500 text-white"
+        : "bg-red-500 text-white";
+    });
 
     /**
      * Fetch the product when the component is mounted.
@@ -221,6 +489,23 @@ export default {
       addToCart,
       addToComparisonList,
       addToWishlist,
+      reviews,
+      sortOption,
+      newReview,
+      isLoggedIn,
+      submitReview,
+      openEditModal,
+      cancelEdit,
+      saveEdit,
+      deleteReview,
+      isCurrentUserReview,
+      formatDate,
+      sortedReviews,
+      showEditModal,
+      editingReview,
+      notification,
+      notificationClass,
+      isInWishlist,
     };
   },
 };
