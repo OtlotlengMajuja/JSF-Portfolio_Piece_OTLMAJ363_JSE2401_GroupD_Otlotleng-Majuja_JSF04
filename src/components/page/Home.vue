@@ -30,6 +30,12 @@
 </template>
 
 <script>
+/**
+ * The Home component serves as the main landing page for the Emercom e-commerce site.
+ * It provides an introduction to the site, highlights featured products, and emphasizes the company's strengths.
+ *
+ * @component
+ */
 export default {
   name: "Home",
 };

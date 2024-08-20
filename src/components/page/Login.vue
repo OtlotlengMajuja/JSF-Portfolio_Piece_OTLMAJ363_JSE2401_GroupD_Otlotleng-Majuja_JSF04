@@ -96,12 +96,20 @@ import { ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter, useRoute } from "vue-router";
 
+/**
+ * The Login component handles user authentication. It allows users to input their
+ * username and password, and provides feedback for validation and errors. It uses
+ * Vuex for state management and Vue Router for navigation.
+ *
+ * @component
+ */
 export default {
   name: "Login",
   setup() {
     const store = useStore();
     const router = useRouter();
     const route = useRoute();
+
     const username = ref("");
     const password = ref("");
     const error = ref("");
@@ -110,6 +118,12 @@ export default {
     const isLoading = ref(false);
     const showPassword = ref(false);
 
+    /**
+     * Handles the form submission process.
+     * Validates the form, attempts login via Vuex store, and handles errors.
+     *
+     * @returns {Promise<void>}
+     */
     const submitForm = async () => {
       if (!validateForm()) {
         return;
@@ -137,6 +151,11 @@ export default {
       }
     };
 
+    /**
+     * Validates the form fields and updates error messages.
+     *
+     * @returns {boolean} True if the form is valid, false otherwise.
+     */
     const validateForm = () => {
       let isValid = true;
       usernameError.value = "";
@@ -155,6 +174,9 @@ export default {
       return isValid;
     };
 
+    /**
+     * Toggles the visibility of the password input field.
+     */
     const togglePasswordVisibility = () => {
       showPassword.value = !showPassword.value;
     };
