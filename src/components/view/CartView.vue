@@ -81,19 +81,49 @@ import { computed } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
+/**
+ * CartView component
+ *
+ * This component represents the shopping cart view. It displays the list of products
+ * in the cart, allows users to update quantities, remove items, and clear the cart.
+ *
+ * @component
+ */
 export default {
   name: "CartView",
   setup() {
     const store = useStore();
     const router = useRouter();
 
+    /**
+     * The list of items in the cart.
+     *
+     * @type {import('vue').ComputedRef<object[]>}
+     */
     const cartItems = computed(() => store.getters.cartItems);
+
+    /**
+     * The total price of items in the cart.
+     *
+     * @type {import('vue').ComputedRef<number>}
+     */
     const cartTotal = computed(() => store.getters.cartTotal);
 
+    /**
+     * Removes a product from the cart.
+     *
+     * @param {number} productId - The ID of the product to remove.
+     */
     const removeFromCart = (productId) => {
       store.dispatch("removeFromCart", productId);
     };
 
+    /**
+     * Updates the quantity of a product in the cart.
+     *
+     * @param {number} productId - The ID of the product to update.
+     * @param {number} quantity - The new quantity of the product.
+     */
     const updateQuantity = (productId, quantity) => {
       if (quantity < 1) {
         removeFromCart(productId);
@@ -102,10 +132,16 @@ export default {
       }
     };
 
+    /**
+     * Clears all items from the cart.
+     */
     const clearCart = () => {
       store.dispatch("clearCart");
     };
 
+    /**
+     * Toggles the visibility of the menu.
+     */
     const toggleMenu = () => {
       const isMenuOpen = store.state.isMenuOpen;
       store.commit("setIsMenuOpen", !isMenuOpen);

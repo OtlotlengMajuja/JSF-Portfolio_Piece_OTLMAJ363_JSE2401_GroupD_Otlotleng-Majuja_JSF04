@@ -64,7 +64,8 @@ import ProductCard from "./ProductCard.vue";
 /**
  * ProductList component
  *
- * This component is responsible for displaying a list of products with filtering and sorting options.
+ * This component displays a list of products with filtering and sorting options.
+ * It allows users to filter products by category and sort them by price.
  *
  * @component
  */
@@ -119,6 +120,8 @@ export default {
 
     /**
      * Filters the products based on the selected category and sort order.
+     *
+     * @function filterProducts
      */
     const filterProducts = () => {
       store.commit("setSelectedCategory", selectedCategory.value);
@@ -127,6 +130,8 @@ export default {
 
     /**
      * Resets the filters to their default values.
+     *
+     * @function resetFilters
      */
     const resetFilters = () => {
       store.commit("resetFilters");
@@ -134,6 +139,8 @@ export default {
 
     /**
      * Fetches the categories and products when the component is mounted.
+     *
+     * @function onMounted
      */
     onMounted(async () => {
       await store.dispatch("fetchCategories");

@@ -128,6 +128,14 @@ import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import StarRating from "../StarRating.vue";
 
+/**
+ * ComparisonView component
+ *
+ * This component displays a comparison table for products. Users can compare features, prices,
+ * and other details of selected products. They can also remove products from the comparison list or clear the entire list.
+ *
+ * @component
+ */
 export default {
   name: "ComparisonView",
   components: {
@@ -137,23 +145,53 @@ export default {
   setup() {
     const store = useStore();
 
+    /**
+     * List of products in the comparison list.
+     *
+     * @type {import('vue').ComputedRef<object[]>}
+     */
     const comparisonList = computed(() => store.getters.comparisonList);
+
+    /**
+     * State to manage the expansion of product descriptions.
+     *
+     * @type {import('vue').Ref<object>}
+     */
     const expandedDescriptions = ref({});
 
+    /**
+     * Removes a product from the comparison list.
+     *
+     * @param {number} productId - The ID of the product to remove.
+     */
     const removeFromComparisonList = (productId) => {
       store.dispatch("removeFromComparisonList", productId);
     };
 
+    /**
+     * Clears the entire comparison list.
+     */
     const clearComparisonList = () => {
       store.dispatch("clearComparisonList");
     };
 
+    /**
+     * Truncates the product description to 100 characters.
+     *
+     * @param {string} description - The product description to truncate.
+     * @returns {string} - The truncated description.
+     */
     const truncateDescription = (description) => {
       return description.length > 100
         ? description.slice(0, 100) + "..."
         : description;
     };
 
+    /**
+     * Toggles the expanded state of the product description.
+     *
+     * @param {number} productId - The ID of the product to toggle.
+     */
     const toggleDescription = (productId) => {
       expandedDescriptions.value[productId] =
         !expandedDescriptions.value[productId];

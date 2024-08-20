@@ -59,13 +59,38 @@
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 
+/**
+ * WishlistView component
+ *
+ * This component displays the user's wishlist. It allows sorting the items by name or price,
+ * adding items to the cart, removing items from the wishlist, and clearing the entire wishlist.
+ *
+ * @component
+ */
 export default {
   name: "WishlistView",
   setup() {
     const store = useStore();
+
+    /**
+     * The criteria by which the wishlist is sorted.
+     *
+     * @type {import('vue').Ref<string>}
+     */
     const sortBy = ref("name");
 
+    /**
+     * List of items in the wishlist.
+     *
+     * @type {import('vue').ComputedRef<object[]>}
+     */
     const wishlistItems = computed(() => store.getters.wishlistItems);
+
+    /**
+     * Sorted list of wishlist items based on the selected sort criteria.
+     *
+     * @type {import('vue').ComputedRef<object[]>}
+     */
     const sortedWishlistItems = computed(() => {
       return [...wishlistItems.value].sort((a, b) => {
         if (sortBy.value === "name") {
@@ -77,6 +102,11 @@ export default {
       });
     });
 
+    /**
+     * Adds a product to the cart.
+     *
+     * @param {object} product - The product to add to the cart.
+     */
     const addToCart = (product) => {
       try {
         store.dispatch("addToCart", product);
@@ -86,6 +116,11 @@ export default {
       }
     };
 
+    /**
+     * Removes a product from the wishlist.
+     *
+     * @param {number} productId - The ID of the product to remove.
+     */
     const removeFromWishlist = (productId) => {
       try {
         store.dispatch("removeFromWishlist", productId);
@@ -94,6 +129,9 @@ export default {
       }
     };
 
+    /**
+     * Clears the entire wishlist.
+     */
     const clearWishlist = () => {
       try {
         store.dispatch("clearWishlist");

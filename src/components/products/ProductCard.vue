@@ -90,7 +90,8 @@ import { useStore } from "vuex";
 /**
  * ProductCard component
  *
- * This component represents a card that displays product details.
+ * This component represents a card that displays product details, including an image, title, price, and category.
+ * It also provides options to view product details, add the product to the wishlist, cart, or comparison list.
  *
  * @component
  * @prop {Object} product - The product object containing details to be displayed.
@@ -98,9 +99,6 @@ import { useStore } from "vuex";
  * @prop {string} product.title - The title of the product.
  * @prop {number} product.price - The price of the product.
  * @prop {string} product.category - The category of the product.
- * @prop {Object} product.rating - The rating object of the product.
- * @prop {number} product.rating.rate - The average rating of the product.
- * @prop {number} product.rating.count - The number of ratings the product has received.
  */
 export default {
   name: "ProductCard",
@@ -120,18 +118,33 @@ export default {
   setup(props) {
     const store = useStore();
 
+    /**
+     * Computed property to check if the product is in the wishlist.
+     *
+     * @type {import('vue').ComputedRef<boolean>}
+     */
     const isInWishlist = computed(() => {
       return store.getters.wishlistItems.some(
         (item) => item.id === props.product.id
       );
     });
 
+    /**
+     * Computed property to check if the product is in the comparison list.
+     *
+     * @type {import('vue').ComputedRef<boolean>}
+     */
     const isInComparisonList = computed(() => {
       return store.getters.comparisonList.some(
         (item) => item.id === props.product.id
       );
     });
 
+    /**
+     * Toggles the product in and out of the wishlist.
+     *
+     * @function toggleWishlist
+     */
     const toggleWishlist = () => {
       try {
         if (isInWishlist.value) {
@@ -144,6 +157,11 @@ export default {
       }
     };
 
+    /**
+     * Adds the product to the shopping cart.
+     *
+     * @function addToCart
+     */
     const addToCart = () => {
       try {
         store.dispatch("addToCart", props.product);
@@ -153,6 +171,11 @@ export default {
       }
     };
 
+    /**
+     * Adds the product to the comparison list.
+     *
+     * @function addToComparison
+     */
     const addToComparison = () => {
       try {
         store.dispatch("addToComparisonList", props.product);
