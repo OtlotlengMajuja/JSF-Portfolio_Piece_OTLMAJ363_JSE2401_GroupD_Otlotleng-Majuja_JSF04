@@ -59,5 +59,7 @@ I would like to acknowledge the resources that were helpful during the developme
   - Template refs [https://vuejs.org/guide/essentials/template-refs.html]
 
 **Link to hosted application:** [https://emercom-shopping.vercel.app/]
+
 **Link to code:** [https://github.com/OtlotlengMajuja/JSF-Portfolio_Piece_OTLMAJ363_JSE2401_GroupD_Otlotleng-Majuja_JSF04.git]
+
 **Project explainer video:** []
