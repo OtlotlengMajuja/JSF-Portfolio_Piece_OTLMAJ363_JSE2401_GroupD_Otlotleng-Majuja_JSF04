@@ -39,5 +39,4 @@
 export default {
   name: "Home",
 };
-console.log("Hello from branch");
 </script>
