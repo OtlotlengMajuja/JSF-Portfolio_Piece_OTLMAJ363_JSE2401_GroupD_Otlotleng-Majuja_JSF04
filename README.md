@@ -2,9 +2,27 @@
 
 ## Project Brief
 
-Using the previous Vue e-commerce store, built using Vue.js and Tailwind CSS, the challenge was to fix any issues that might have been prevalent and extend the functionlaity of the store.
+In this exciting project, we set out to transform a basic e-commerce store built with Vue.js and Tailwind CSS into a feature-rich and user-friendly online shopping destination. The challenge was to identify and address any existing issues, while also extending the functionality to provide a truly seamless and engaging shopping experience for our users.
+
+**Link to hosted application:** [https://emercom-shopping.vercel.app/]
 
 ## Overview
+
+### Unlocking the Power of Vue.js
+
+At the core of our e-commerce store lies the powerful Vue.js framework, which allowed us to build a modern and responsive user interface. By leveraging Vue Router for navigation and Vuex for state management, we were able to create a smooth and efficient shopping experience, with dynamic content and seamless transitions between pages.
+
+### Enhancing the User Journey
+
+One of our primary goals was to improve the overall user journey, and we achieved this by introducing several key features:
+
+1. Secure Login: We implemented a functional and responsive login page, integrating JWT Decode for an authentication system that ensures the security and privacy of user data.
+2. Comprehensive Shopping Cart: Customers can now easily add products to their shopping cart, view the cart's contents, and manage their purchases with complete control.
+3. Intelligent Comparison List: Users can conveniently compare products, side-by-side, to make informed purchasing decisions.
+4. Personalized Wishlist: The addition of a wishlist feature allows customers to save their favorite products for future consideration.
+5. Ratings and Reviews: Shoppers can now share their experiences by leaving ratings and reviews for the products they've purchased, fostering a sense of community and trust.
+
+**Link to code:** [https://github.com/OtlotlengMajuja/JSF-Portfolio_Piece_OTLMAJ363_JSE2401_GroupD_Otlotleng-Majuja_JSF04.git]
 
 ## Technologies Used
 
@@ -57,9 +75,5 @@ I would like to acknowledge the resources that were helpful during the developme
 - Vue.js documentation:
   - Class and style bindings [https://vuejs.org/guide/essentials/class-and-style.html]
   - Template refs [https://vuejs.org/guide/essentials/template-refs.html]
-
-**Link to hosted application:** [https://emercom-shopping.vercel.app/]
-
-**Link to code:** [https://github.com/OtlotlengMajuja/JSF-Portfolio_Piece_OTLMAJ363_JSE2401_GroupD_Otlotleng-Majuja_JSF04.git]
 
 **Project explainer video:** []
