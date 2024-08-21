@@ -1,4 +1,4 @@
-# JSF04 - Vue.js E-Commerce Store
+# JSF04 - Extended Vue.js E-Commerce Store Features
 
 ## Project Brief
 
