@@ -2,7 +2,7 @@
 
 ## Project Brief
 
-In this exciting project, we set out to transform a basic e-commerce store built with Vue.js and Tailwind CSS into a feature-rich and user-friendly online shopping destination. The challenge was to identify and address any existing issues, while also extending the functionality to provide a truly seamless and engaging shopping experience for our users.
+In this project, we set out to transform a basic e-commerce store built with Vue.js and Tailwind CSS into a feature-rich and user-friendly online shopping destination. The challenge was to identify and address any existing issues, while also extending the functionality to provide a truly seamless and engaging shopping experience for our users.
 
 **Link to hosted application:** [https://emercom-shopping.vercel.app/]
 
