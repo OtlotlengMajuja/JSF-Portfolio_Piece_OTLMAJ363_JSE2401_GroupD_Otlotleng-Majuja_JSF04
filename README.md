@@ -55,7 +55,7 @@ One of our primary goals was to improve the overall user journey, and we achieve
 
 1. **Clone the repository:**
    - Open your terminal and select powershell.
-   - git clone https://github.com/OtlotlengMajuja/JSF-Portfolio_Piece_OTLMAJ363_JSE2401_GroupD_Otlotleng-Majuja_JSF04.git
+   - git clone `https://github.com/OtlotlengMajuja/JSF-Portfolio_Piece_OTLMAJ363_JSE2401_GroupD_Otlotleng-Majuja_JSF04.git`
 2. **Install dependencies:**
    - using `npm install`
 3. **Running the project**
