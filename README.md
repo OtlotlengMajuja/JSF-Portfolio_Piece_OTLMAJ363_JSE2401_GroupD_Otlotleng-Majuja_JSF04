@@ -16,11 +16,11 @@ At the core of our e-commerce store lies the powerful Vue.js framework, which al
 
 One of our primary goals was to improve the overall user journey, and we achieved this by introducing several key features:
 
-1. Secure Login: We implemented a functional and responsive login page, integrating JWT Decode for an authentication system that ensures the security and privacy of user data.
-2. Comprehensive Shopping Cart: Customers can now easily add products to their shopping cart, view the cart's contents, and manage their purchases with complete control.
-3. Intelligent Comparison List: Users can conveniently compare products, side-by-side, to make informed purchasing decisions.
-4. Personalized Wishlist: The addition of a wishlist feature allows customers to save their favorite products for future consideration.
-5. Ratings and Reviews: Shoppers can now share their experiences by leaving ratings and reviews for the products they've purchased, fostering a sense of community and trust.
+1. **Secure Login:** We implemented a functional and responsive login page, integrating JWT Decode for an authentication system that ensures the security and privacy of user data.
+2. **Comprehensive Shopping Cart:** Customers can now easily add products to their shopping cart, view the cart's contents, and manage their purchases with complete control.
+3. **Intelligent Comparison List:** Users can conveniently compare products, side-by-side, to make informed purchasing decisions.
+4. **Personalized Wishlist:** The addition of a wishlist feature allows customers to save their favorite products for future consideration.
+5. **Ratings and Reviews:** Shoppers can now share their experiences by leaving ratings and reviews for the products they've purchased, fostering a sense of community and trust.
 
 **Link to code:** [https://github.com/OtlotlengMajuja/JSF-Portfolio_Piece_OTLMAJ363_JSE2401_GroupD_Otlotleng-Majuja_JSF04.git]
 
