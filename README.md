@@ -76,4 +76,4 @@ I would like to acknowledge the resources that were helpful during the developme
   - Class and style bindings [https://vuejs.org/guide/essentials/class-and-style.html]
   - Template refs [https://vuejs.org/guide/essentials/template-refs.html]
 
-**Project explainer video:** []
+**Project explainer video:** [https://youtu.be/-FBgmAYQo4E]
